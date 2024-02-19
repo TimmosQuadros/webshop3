@@ -65,7 +65,13 @@ export function displayProducts(shoppingCart: { addItem: (arg0: { id: string; na
     }
 }
 
+function addItem(product: Product & { quantity: number }) {
+    console.log(product)
+}
+
 export const DisplayProducts = (shoppingCart: { addItem: (arg0: { id: string; name: string; price: number; quantity: number; }) => void; }) => {
+
+
     // Logic to generate product list based on the cart
     return (
         <div id="products" className="products-container">
