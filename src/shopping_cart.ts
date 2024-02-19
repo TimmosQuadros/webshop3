@@ -15,7 +15,8 @@ class ShoppingCart {
         } else {
             this.items.push(item);
         }
-        this.updateCartUI();
+        console.log(this.items)
+        //this.updateCartUI();
     }
 
     removeAllItem(itemId: string) {

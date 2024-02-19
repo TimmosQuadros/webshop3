@@ -1,4 +1,5 @@
 import productsData from "./assets/products.json";
+import {shoppingCar1t} from "./shopping_cart.ts";
 
 // products.ts
 
@@ -65,10 +66,6 @@ export function displayProducts(shoppingCart: { addItem: (arg0: { id: string; na
     }
 }
 
-function addItem(product: Product & { quantity: number }) {
-    console.log(product)
-}
-
 export const DisplayProducts = (shoppingCart: { addItem: (arg0: { id: string; name: string; price: number; quantity: number; }) => void; }) => {
 
 
@@ -82,7 +79,7 @@ export const DisplayProducts = (shoppingCart: { addItem: (arg0: { id: string; na
                     </div>
                     <h4 className="product-name">{product.name}</h4>
                     <div className="product-price">${product.price.toFixed(2)}</div>
-                    <button onClick={() => addItem({ ...product, quantity: 1 })} className="add-to-basket">
+                    <button onClick={() => shoppingCart.addItem({ ...product, quantity: 1 })} className="add-to-basket">
                         Add to Basket
                     </button>
                 </div>

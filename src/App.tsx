@@ -24,7 +24,7 @@ function App() {
               </div>
           </div>
           <div id="products" className="products-container">
-              <DisplayProducts addItem={shoppingCart}></DisplayProducts>
+              <DisplayProducts addItem={shoppingCart.addItem}></DisplayProducts>
               {/* Products will be dynamically inserted here by displayProducts */}
           </div>
       </>
