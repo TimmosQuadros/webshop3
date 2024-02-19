@@ -1,0 +1,198 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0; /* Add padding for better spacing */
+}
+
+.cart-items-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+.product-name {
+  flex-basis: 50%; /* Adjust based on your needs */
+  text-align: left;
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 700;
+  margin: 0 0 10px; /* Add some bottom margin if needed */
+}
+
+.product-price, .product-quantity {
+  flex-basis: 20%; /* Adjust based on your needs */
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.delete-item {
+  flex-basis: 10%; /* Adjust based on your needs */
+  text-align: right;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: red;
+}
+
+.shopping-cart {
+  padding-left: 10px; /*Increases the hoverable area*/
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  cursor: pointer;
+}
+
+.shopping-cart img {
+  width: 30px; /* Adjust as needed */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.cart-summary {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%; /*Remove gap between basket and summary*/
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 10px;
+  z-index: 1;
+  width: 600px; /* Adjust width as necessary */
+}
+
+.shopping-cart:hover .cart-summary,
+.cart-summary:hover {
+  display: block;
+}
+
+.cart-total {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.checkout-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.checkout-button:hover {
+  background-color: #45a049;
+}
+
+
+#cart-count {
+  position: absolute;
+  top: -10px; /* Adjust as needed */
+  right: -10px; /* Adjust based on the icon size and desired position */
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 8px;
+  font-size: 0.8em;
+}
+
+.home-logo img {
+  width: 400px; /* Adjust size as needed */
+  height: auto;
+}
+
+@media (max-width: 600px) {
+  .home-logo {
+    position: fixed; /* Use fixed to keep it at the top during scroll, or absolute if not needed */
+    top: 10px; /* Adjust based on your needs, keeping it at the top */
+    left: 50%; /* Centers the element in the viewport */
+    transform: translateX(-50%); /* Adjusts for the element's width to truly center it */
+    z-index: 1000; /* Ensure it's above other content */
+    cursor: pointer;
+  }
+}
+
+.products-container {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center the items horizontally */
+  gap: 10px; /* Adjust the gap between products */
+}
+
+
+.product {
+  flex: 0 1 200px; /* Flex-grow: 0, Flex-shrink: 1, Flex-basis: 200px */
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+
+.product-image img {
+  width: 100%; /* Adjust as needed */
+  height: 200px; /* Adjust as needed */
+  background-color: #f3f3f3; /* Placeholder background */
+  object-fit: cover;
+}
+
+.add-to-basket {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
