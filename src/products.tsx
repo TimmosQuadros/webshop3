@@ -66,9 +66,23 @@ export function displayProducts(shoppingCart: { addItem: (arg0: { id: string; na
     }
 }
 
-export const DisplayProducts = (shoppingCart: { addItem: (arg0: { id: string; name: string; price: number; quantity: number; }) => void; }) => {
+export const DisplayProducts = (shoppingCart: { addItem: (arg0: { id: string; name: string; price: number; currency: string; rebateQuantity: number; rebatePercent: number; upsellProductId: string | null; }) => void; }) => {
 
 
+    const handleAddToBasket = (productId: string) => {
+        const product = productsData.find(p => p.id === productId);
+        if (product) {
+            shoppingCart.addItem({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                currency: product.currency,
+                rebateQuantity: product.rebateQuantity,
+                rebatePercent: product.rebatePercent,
+                upsellProductId: product.upsellProductId
+            });
+        }
+    };
     // Logic to generate product list based on the cart
     return (
         <div id="products" className="products-container">
@@ -78,8 +92,8 @@ export const DisplayProducts = (shoppingCart: { addItem: (arg0: { id: string; na
                         <img src={product.imageUrl} alt={product.name} /> {/* Replace 'product.imageUrl' with your actual image property */}
                     </div>
                     <h4 className="product-name">{product.name}</h4>
-                    <div className="product-price">${product.price.toFixed(2)}</div>
-                    <button onClick={() => shoppingCart.addItem({ ...product, quantity: 1 })} className="add-to-basket">
+                    <div className="product-price">{product.currency}{product.price.toFixed(2)}</div>
+                    <button onClick={() => handleAddToBasket(product.id)} className="add-to-basket">
                         Add to Basket
                     </button>
                 </div>

@@ -2,21 +2,29 @@ type CartItem = {
     id: string;
     name: string;
     price: number;
+    currency: string;
     quantity: number;
 };
 
 class ShoppingCart {
     items: CartItem[] = [];
 
+    constructor() {
+        this.addItem = this.addItem.bind(this);
+        this.removeAllItem = this.removeAllItem.bind(this);
+        // Bind other methods as necessary
+    }
+
     addItem(item: CartItem) {
         const existingItem = this.items.find((existingItem) => existingItem.id === item.id);
         if (existingItem) {
-            existingItem.quantity += item.quantity;
+            existingItem.quantity += 1;
         } else {
+            item.quantity = 1;
             this.items.push(item);
         }
-        console.log(this.items)
-        //this.updateCartUI();
+        this.updateCartUI();
+        console.log(this.items);
     }
 
     removeAllItem(itemId: string) {
@@ -85,7 +93,7 @@ class ShoppingCart {
                     itemElement.className = 'cart-item';
                     itemElement.innerHTML = `
                     <span class="product-name">${item.name}</span>
-                    <span class="product-price">$${item.price.toFixed(2)}</span>
+                    <span class="product-price">${item.currency}${item.price.toFixed(2)}</span>
                     <span class="product-quantity">${item.quantity} pc. </span>
                     <button class="delete-item" data-id="${item.id}">X</button>
                 `;
@@ -96,7 +104,7 @@ class ShoppingCart {
                 const totalCost = this.items.reduce((total, item) => total + (item.price * item.quantity), 0);
                 const totalCostElement = document.createElement('li');
                 totalCostElement.className = 'cart-total';
-                totalCostElement.textContent = `Total: $${totalCost.toFixed(2)}`;
+                totalCostElement.textContent = `Total: ${this.items[0].currency}${totalCost.toFixed(2)}`;
                 list.appendChild(totalCostElement); // Append the total cost to the list
 
                 // Add checkout button
