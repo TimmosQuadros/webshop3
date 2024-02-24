@@ -1,5 +1,4 @@
 import productsData from "./assets/products.json";
-import {shoppingCar1t} from "./shopping_cart.ts";
 
 // products.ts
 
@@ -89,7 +88,7 @@ export const DisplayProducts = (shoppingCart: { addItem: (arg0: { id: string; na
             {productsData.map((product) => (
                 <div key={product.id} className="product">
                     <div className="product-image">
-                        <img src={product.imageUrl} alt={product.name} /> {/* Replace 'product.imageUrl' with your actual image property */}
+                        <img src={product.name} alt={product.name} /> {/* Replace 'product.imageUrl' with your actual image property */}
                     </div>
                     <h4 className="product-name">{product.name}</h4>
                     <div className="product-price">{product.currency}{product.price.toFixed(2)}</div>

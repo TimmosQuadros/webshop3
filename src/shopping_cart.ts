@@ -116,8 +116,8 @@ class ShoppingCart {
                 // Optionally, add an event listener to the checkout button here
                 // @ts-ignore
                 checkoutButtonElement.querySelector('.checkout-button').addEventListener('click', () => {
-                    console.log('Proceeding to checkout...');
-                    // Implement your checkout logic here
+                    //console.log('Proceeding to checkout...');
+
                 });
             } else if (list) {
                 list.innerHTML = '<li>Your cart is empty.</li>';

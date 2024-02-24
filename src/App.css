@@ -81,11 +81,10 @@
 }
 
 .shopping-cart {
-  padding-left: 10px; /*Increases the hoverable area*/
+  z-index: 100; /* Lower than navbar */
   position: fixed;
   right: 20px;
-  top: 20px;
-  cursor: pointer;
+  top: 60px; /* Adjust top position to be below the navbar */
 }
 
 .shopping-cart img {
@@ -196,3 +195,51 @@
   border: none;
   cursor: pointer;
 }
+
+/* Navbar.css */
+nav {
+  background-color: #004d99; /* Dark blue background */
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 1050; /* Make sure navbar is above other elements */
+  display: flex;
+  justify-content: center; /* Center navbar items */
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+nav ul li {
+  margin: 0 15px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav ul li a:hover {
+  color: #ffdb4d;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  nav ul {
+    flex-direction: column; /* Stack items vertically on small screens */
+    align-items: center; /* Center items */
+  }
+
+  nav ul li {
+    margin: 10px 0; /* Adjust spacing for stacked layout */
+  }
+}
+
