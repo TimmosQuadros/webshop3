@@ -1,263 +1,112 @@
 [
   {
-    "id": "vitamin-d-90-100",
-    "name": "D-vitamin, 90ug, 100 stk",
-    "price": 116,
-    "currency": "DKK",
-    "rebateQuantity": 3,
-    "rebatePercent": 10,
-    "upsellProductId": null
-  },
-  {
-    "id": "vitamin-c-500-250",
-    "name": "C-vitamin, 500mg, 250 stk",
-    "price": 150,
-    "currency": "DKK",
-    "rebateQuantity": 2,
-    "rebatePercent": 25,
-    "upsellProductId": "vitamin-c-depot-500-250"
-  },
-  {
-    "id": "vitamin-c-depot-500-250",
-    "name": "C-vitamin Depot, 500mg, 250 stk",
-    "price": 175,
-    "currency": "DKK",
-    "rebateQuantity": 3,
-    "rebatePercent": 10,
-    "upsellProductId": null
-  },
-  {
-    "id": "fish-oil-1000-120",
-    "name": "Omega 3 fiskeolie, 1000mg, 120 stk",
-    "price": 69,
-    "currency": "DKK",
-    "rebateQuantity": 5,
-    "rebatePercent": 10,
-    "upsellProductId": null
-  },
-  {
-    "id": "coffee-grinder",
-    "name": "Kaffekværn",
-    "price": 145,
-    "currency": "DKK",
-    "rebateQuantity": 0,
-    "rebatePercent": 0,
-    "upsellProductId": "coffee-grinder-pro"
-  },
-  {
-    "id": "coffee-grinder-pro",
-    "name": "Kaffekværn Præcision",
-    "price": 320,
-    "currency": "DKK",
-    "rebateQuantity": 0,
-    "rebatePercent": 0,
-    "upsellProductId": null
-  },
-  {
-    "id": "toothbrush",
-    "name": "Tandbørste, 5stk",
-    "price": 40,
-    "currency": "DKK",
-    "rebateQuantity": 0,
-    "rebatePercent": 0,
-    "upsellProductId": "toothbrush-bamboo"
-  },
-  {
-    "id": "toothbrush-bamboo",
-    "name": "Tandbørste i bambus, 3stk",
-    "price": 40,
+    "id": "1",
+    "name": "MacBook Pro 2023 M2 Pro 14.2\" 12CPU/19GPU/1TB",
+    "price": 3399.99,
+    "quantity": 1,
     "currency": "DKK",
     "rebateQuantity": 2,
     "rebatePercent": 10,
-    "upsellProductId": null
+    "upsellProductId": null,
+    "imagePath": "/product_imgs/MacBook_Pro_14.jpeg"
   },
   {
-    "id": "trimmer",
-    "name": "Barbermaskine",
-    "price": 200,
-    "currency": "DKK",
-    "rebateQuantity": 0,
-    "rebatePercent": 0,
-    "upsellProductId": "trimmer-battery"
-  },
-  {
-    "id": "trimmer-battery",
-    "name": "Barbermaskine m batteri",
-    "price": 350,
-    "currency": "DKK",
-    "rebateQuantity": 0,
-    "rebatePercent": 0,
-    "upsellProductId": null
-  },
-  {
-    "id": "hair-clip",
-    "name": "Hårklemme",
-    "price": 25,
-    "currency": "DKK",
-    "rebateQuantity": 2,
-    "rebatePercent": 20,
-    "upsellProductId": "hair-clip-large"
-  },
-  {
-    "id": "hair-clip-large",
-    "name": "Hårklemme, stor",
-    "price": 45,
-    "currency": "DKK",
-    "rebateQuantity": 0,
-    "rebatePercent": 0,
-    "upsellProductId": null
-  },
-  {
-    "id": "scarf-cotton",
-    "name": "Tørklæde, bomuld",
-    "price": 100,
+    "id": "2",
+    "name": "MacBook Pro 2022 M2 13.3\" 8C GPU, 8GB, 512GB Silver",
+    "price": 1779.00,
+    "quantity": 1,
     "currency": "DKK",
     "rebateQuantity": 2,
     "rebatePercent": 10,
-    "upsellProductId": "scarf-wool"
+    "upsellProductId": null,
+    "imagePath": "/product_imgs/MacBook_Pro_13.jpg"
   },
   {
-    "id": "scarf-wool",
-    "name": "Tørklæde, uld",
-    "price": 150,
+    "id": "3",
+    "name": "MacBook Air 2023 M2 15\" 8CPU 10GPU 512GB Midnight",
+    "price": 2068.50,
+    "quantity": 1,
     "currency": "DKK",
     "rebateQuantity": 2,
     "rebatePercent": 10,
-    "upsellProductId": "scarf-silk"
+    "upsellProductId": null,
+    "imagePath": "/product_imgs/MacBook_Air_15.jpeg"
   },
   {
-    "id": "scarf-silk",
-    "name": "Tørklæde, silke",
-    "price": 250,
+    "id": "4",
+    "name": "MacBook Air 2022 M2 13.6\" 10C GPU, 8GB, 512GB Silver",
+    "price": 1909.50,
+    "quantity": 1,
     "currency": "DKK",
     "rebateQuantity": 2,
     "rebatePercent": 10,
-    "upsellProductId": null
+    "upsellProductId": null,
+    "imagePath": "/product_imgs/MacBook_Air_13.jpeg"
   },
   {
-    "id": "cap",
-    "name": "Kasket",
-    "price": 150,
+    "id": "5",
+    "name": "iMac 2023 M3 24\" 4.5K  8‑core CPU/10 GPU, 512GB Green",
+    "price": 2330.00,
+    "quantity": 1,
     "currency": "DKK",
     "rebateQuantity": 2,
     "rebatePercent": 10,
-    "upsellProductId": "cap-flat"
+    "upsellProductId": null,
+    "imagePath": "/product_imgs/iMac_M3.jpeg"
   },
   {
-    "id": "cap-flat",
-    "name": "Kasket, sixpence",
-    "price": 590,
-    "currency": "DKK",
-    "rebateQuantity": 0,
-    "rebatePercent": 0,
-    "upsellProductId": null
-  },
-  {
-    "id": "teddy",
-    "name": "Plysbamse",
-    "price": 75,
-    "currency": "DKK",
-    "rebateQuantity": 0,
-    "rebatePercent": 0,
-    "upsellProductId": "teddy-large"
-  },
-  {
-    "id": "teddy-large",
-    "name": "Plysbamse, stor",
-    "price": 150,
-    "currency": "DKK",
-    "rebateQuantity": 0,
-    "rebatePercent": 0,
-    "upsellProductId": null
-  },
-  {
-    "id": "kids-songbook",
-    "name": "De små synger",
-    "price": 120,
-    "currency": "DKK",
-    "rebateQuantity": 0,
-    "rebatePercent": 0,
-    "upsellProductId": "kids-songbook-hardcover"
-  },
-  {
-    "id": "kids-songbook-hardcover",
-    "name": "De små synger, indbundet",
-    "price": 180,
-    "currency": "DKK",
-    "rebateQuantity": 0,
-    "rebatePercent": 0,
-    "upsellProductId": null
-  },
-  {
-    "id": "coffeebeans-500g",
-    "name": "Kaffebønner",
-    "price": 50,
-    "currency": "DKK",
-    "rebateQuantity": 4,
-    "rebatePercent": 25,
-    "upsellProductId": "coffeebeans-organic-500g"
-  },
-  {
-    "id": "coffeebeans-organic-500g",
-    "name": "Kaffebønner, økologiske",
-    "price": 60,
+    "id": "6",
+    "name": "iMac 2021 M1 24\" 4.5K 8‑core CPU/8 GPU, 512GB Silver",
+    "price": 1678.00,
+    "quantity": 1,
     "currency": "DKK",
     "rebateQuantity": 2,
     "rebatePercent": 10,
-    "upsellProductId": null
+    "upsellProductId": null,
+    "imagePath": "/product_imgs/iMac_24.jpeg"
   },
   {
-    "id": "the-english-100g",
-    "name": "Sort te, 100g",
-    "price": 20,
-    "currency": "DKK",
-    "rebateQuantity": 4,
-    "rebatePercent": 25,
-    "upsellProductId": "the-darjeeling-100g"
-  },
-  {
-    "id": "the-darjeeling-100g",
-    "name": "Sort te, Darjeeling, 100g",
-    "price": 30,
-    "currency": "DKK",
-    "rebateQuantity": 4,
-    "rebatePercent": 25,
-    "upsellProductId": "the-organic-100g"
-  },
-  {
-    "id": "the-organic-100g",
-    "name": "Sort te, Darjeeling, økologisk, 100g",
-    "price": 35,
+    "id": "7",
+    "name": "iPad Pro 2022 12.9\" Wi‑Fi + Cell 2TB Silver",
+    "price": 3399.99,
+    "quantity": 1,
     "currency": "DKK",
     "rebateQuantity": 2,
     "rebatePercent": 10,
-    "upsellProductId": null
+    "upsellProductId": null,
+    "imagePath": "/product_imgs/iPad_Pro.jpeg"
   },
   {
-    "id": "sugar-white-1kg",
-    "name": "Sukker, hvidt, 1000g",
-    "price": 30,
-    "currency": "DKK",
-    "rebateQuantity": 4,
-    "rebatePercent": 25,
-    "upsellProductId": "sugar-cane-1kg"
-  },
-  {
-    "id": "sugar-cane-1kg",
-    "name": "Rørsukker, 1000g",
-    "price": 40,
-    "currency": "DKK",
-    "rebateQuantity": 4,
-    "rebatePercent": 25,
-    "upsellProductId": "sugar-organic-1kg"
-  },
-  {
-    "id": "sugar-organic-1kg",
-    "name": "Rørsukker, økologisk, 1000g",
-    "price": 45,
+    "id": "8",
+    "name": "iPad Pro 2022 12.9\" Wi‑Fi + Cell 1TB Space Grey",
+    "price": 2820.00,
+    "quantity": 1,
     "currency": "DKK",
     "rebateQuantity": 2,
     "rebatePercent": 10,
-    "upsellProductId": null
+    "upsellProductId": null,
+    "imagePath": "/product_imgs/iPad_Pro_1tb.jpeg"
+  },
+  {
+    "id": "9",
+    "name": "Mac Studio 2023 M2 Ultra 24CPU 60GPU 1TB SSD",
+    "price": 5468.00,
+    "quantity": 1,
+    "currency": "DKK",
+    "rebateQuantity": 2,
+    "rebatePercent": 10,
+    "upsellProductId": null,
+    "imagePath": "/product_imgs/Mac_Studio_M2.jpeg"
+  },
+  {
+    "id": "10",
+    "name": "Mac Studio 2022 M1 Max 10c CPU 24c GPU 512GB",
+    "price": 2473.60,
+    "quantity": 1,
+    "currency": "DKK",
+    "rebateQuantity": 2,
+    "rebatePercent": 10,
+    "upsellProductId": null,
+    "imagePath": "/product_imgs/Mac_Studio.jpeg"
   }
 ]
