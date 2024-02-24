@@ -165,26 +165,32 @@
   margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Center the items horizontally */
-  gap: 10px; /* Adjust the gap between products */
+  justify-content: center;
+  gap: 10px;
 }
 
+.product-content {
+  flex: 1; /* Make the content expand */
+  display: flex;
+  flex-direction: column;
+}
 
 .product {
-  flex: 0 1 200px; /* Flex-grow: 0, Flex-shrink: 1, Flex-basis: 200px */
+  flex: 0 1 200px;
+  display: flex;
+  flex-direction: column;
   border: 1px solid #ccc;
   padding: 10px;
   margin: 10px;
   text-align: center;
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  box-sizing: border-box;
 }
 
 
 .product-image img {
-  width: 100%; /* Adjust as needed */
-  height: 200px; /* Adjust as needed */
-  background-color: #f3f3f3; /* Placeholder background */
-  object-fit: cover;
+  width: 100%;
+  height: auto; /* Adjust based on your needs */
+  object-fit: cover; /* Ensure the image covers the area well */
 }
 
 .add-to-basket {

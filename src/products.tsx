@@ -87,11 +87,13 @@ export const DisplayProducts = (shoppingCart: { addItem: (arg0: { id: string; na
         <div id="products" className="products-container">
             {productsData.map((product) => (
                 <div key={product.id} className="product">
-                    <div className="product-image">
-                        <img src={product.name} alt={product.name} /> {/* Replace 'product.imageUrl' with your actual image property */}
+                    <div className="product-content"> {/* New wrapper */}
+                        <div className="product-image">
+                            <img src={product.name} alt={product.name} /> {/* Replace 'product.imageUrl' with your actual image property */}
+                        </div>
+                        <h4 className="product-name">{product.name}</h4>
+                        <div className="product-price">{product.currency}{product.price.toFixed(2)}</div>
                     </div>
-                    <h4 className="product-name">{product.name}</h4>
-                    <div className="product-price">{product.currency}{product.price.toFixed(2)}</div>
                     <button onClick={() => handleAddToBasket(product.id)} className="add-to-basket">
                         Add to Basket
                     </button>
