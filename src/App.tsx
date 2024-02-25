@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import {shoppingCart} from "./shopping_cart.ts";
+import { shoppingCart, CartItem } from "./shopping_cart.ts";
 import ShoppingCart from './shoppingcart.tsx';
 import {DisplayProducts} from "./products.tsx";
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
@@ -13,34 +13,42 @@ import Contact from './Contact'; // You need to create this component
 
 function App() {
 
-    const [cartItems, setItems] = useState([]);
+    const [cartItems, setItems] = useState<CartItem[]>([]);
 
-    const addItem = (item: any) => {
-        setItems(prevItems => {
-            const existingItemIndex = prevItems.findIndex(i => i.id === item.id);
-            if (existingItemIndex > -1) {
-                const updatedItems = [...prevItems];
-                console.log(updatedItems[existingItemIndex].quantity);
-                updatedItems[existingItemIndex].quantity += 1;
-                return updatedItems;
-            } else {
-                return [...prevItems, { ...item, quantity: 1 }];
-            }
-        });
-    };
+    const addItem2 = (item: CartItem) => {
+        setItems([...cartItems, item]);
+    }
 
-    const removeItem = (itemId: string) => {
-        setItems(currentItems =>
-            currentItems.reduce((acc, item) => {
-                if (item.id === itemId && item.quantity > 1) {
-                    acc.push({ ...item, quantity: item.quantity - 1 });
-                } else if (item.id !== itemId) {
-                    acc.push(item);
-                }
-                return acc;
-            }, [] as CartItem[])
-        );
-    };
+    removeItem2 = (itemId: string) => {
+        setItems(cartItems.filter(item => item.id !== itemId));
+    }
+
+    // const addItem = (item: any) => {
+    //     setItems(prevItems => {
+    //         const existingItemIndex = prevItems.findIndex(i => i.id === item.id);
+    //         if (existingItemIndex > -1) {
+    //             const updatedItems = [...prevItems];
+    //             console.log(updatedItems[existingItemIndex].quantity);
+    //             updatedItems[existingItemIndex].quantity += 1;
+    //             return updatedItems;
+    //         } else {
+    //             return [...prevItems, { ...item, quantity: 1 }];
+    //         }
+    //     });
+    // };
+
+    // const removeItem = (itemId: string) => {
+    //     setItems(currentItems =>
+    //         currentItems.reduce((acc, item) => {
+    //             if (item.id === itemId && item.quantity > 1) {
+    //                 acc.push({ ...item, quantity: item.quantity - 1 });
+    //             } else if (item.id !== itemId) {
+    //                 acc.push(item);
+    //             }
+    //             return acc;
+    //         }, [] as CartItem[])
+    //     );
+    // };
 
 
     return (
@@ -66,7 +74,7 @@ function App() {
                         </a>
                         <ShoppingCart cartItems={cartItems} />
                         <div id="products" className="products-container">
-                            <DisplayProducts addItem={addItem}></DisplayProducts>
+                            <DisplayProducts addItem={addItem2}></DisplayProducts>
                             {/* Products will be dynamically inserted here by displayProducts */}
                         </div>
                     </>
