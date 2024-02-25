@@ -8,7 +8,8 @@
     "rebateQuantity": 2,
     "rebatePercent": 10,
     "upsellProductId": null,
-    "imagePath": "/product_imgs/MacBook_Pro_14.jpeg"
+    "imagePath": "/product_imgs/MacBook_Pro_14.jpeg",
+    "giftWrap": false
   },
   {
     "id": "2",
@@ -19,7 +20,8 @@
     "rebateQuantity": 2,
     "rebatePercent": 10,
     "upsellProductId": null,
-    "imagePath": "/product_imgs/MacBook_Pro_13.jpg"
+    "imagePath": "/product_imgs/MacBook_Pro_13.jpg",
+    "giftWrap": false
   },
   {
     "id": "3",
@@ -30,7 +32,8 @@
     "rebateQuantity": 2,
     "rebatePercent": 10,
     "upsellProductId": null,
-    "imagePath": "/product_imgs/MacBook_Air_15.jpeg"
+    "imagePath": "/product_imgs/MacBook_Air_15.jpeg",
+    "giftWrap": false
   },
   {
     "id": "4",
@@ -41,7 +44,8 @@
     "rebateQuantity": 2,
     "rebatePercent": 10,
     "upsellProductId": null,
-    "imagePath": "/product_imgs/MacBook_Air_13.jpeg"
+    "imagePath": "/product_imgs/MacBook_Air_13.jpeg",
+    "giftWrap": false
   },
   {
     "id": "5",
@@ -52,7 +56,8 @@
     "rebateQuantity": 2,
     "rebatePercent": 10,
     "upsellProductId": null,
-    "imagePath": "/product_imgs/iMac_M3.jpeg"
+    "imagePath": "/product_imgs/iMac_M3.jpeg",
+    "giftWrap": false
   },
   {
     "id": "6",
@@ -63,7 +68,8 @@
     "rebateQuantity": 2,
     "rebatePercent": 10,
     "upsellProductId": null,
-    "imagePath": "/product_imgs/iMac_24.jpeg"
+    "imagePath": "/product_imgs/iMac_24.jpeg",
+    "giftWrap": false
   },
   {
     "id": "7",
@@ -74,7 +80,8 @@
     "rebateQuantity": 2,
     "rebatePercent": 10,
     "upsellProductId": null,
-    "imagePath": "/product_imgs/iPad_Pro.jpeg"
+    "imagePath": "/product_imgs/iPad_Pro.jpeg",
+    "giftWrap": false
   },
   {
     "id": "8",
@@ -85,7 +92,8 @@
     "rebateQuantity": 2,
     "rebatePercent": 10,
     "upsellProductId": null,
-    "imagePath": "/product_imgs/iPad_Pro_1tb.jpeg"
+    "imagePath": "/product_imgs/iPad_Pro_1tb.jpeg",
+    "giftWrap": false
   },
   {
     "id": "9",
@@ -96,7 +104,8 @@
     "rebateQuantity": 2,
     "rebatePercent": 10,
     "upsellProductId": null,
-    "imagePath": "/product_imgs/Mac_Studio_M2.jpeg"
+    "imagePath": "/product_imgs/Mac_Studio_M2.jpeg",
+    "giftWrap": false
   },
   {
     "id": "10",
@@ -107,6 +116,7 @@
     "rebateQuantity": 2,
     "rebatePercent": 10,
     "upsellProductId": null,
-    "imagePath": "/product_imgs/Mac_Studio.jpeg"
+    "imagePath": "/product_imgs/Mac_Studio.jpeg",
+    "giftWrap": false
   }
 ]
