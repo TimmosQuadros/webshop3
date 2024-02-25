@@ -8,6 +8,7 @@ export type CartItem = {
     price: number;
     currency: string;
     quantity: number;
+    giftWrap: boolean;
 };
 
 type GroupedCartItem = CartItem & { quantity: number, accumulatedPrice: number };

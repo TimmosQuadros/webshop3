@@ -5,7 +5,7 @@ import {CartItem} from "./shoppingcart.tsx";
 
 type GroupedCartItem = CartItem & { quantity: number, accumulatedPrice: number };
 // CheckoutPage component
-const CheckoutPage = ({cartItems, removeItem}) => {
+const CheckoutPage = ({cartItems, removeItem, setCartItems}) => {
     console.log(removeItem);
     //const location = useLocation();
     //const cartItems = location.state?.cartItems;
@@ -26,7 +26,21 @@ const CheckoutPage = ({cartItems, removeItem}) => {
 
     const calculateTotalPrice = () => {
         const basePrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-        return isGiftWrapChecked ? basePrice + giftWrapPrice : basePrice;
+        const giftWrapTotal = cartItems.reduce((total, item) => total + (item.giftWrap ? giftWrapPrice * item.quantity : 0), 0);
+        return basePrice + giftWrapTotal;
+    };
+
+    // Add or update a function to toggle gift wrap for an individual item
+    const toggleGiftWrap = (itemId: string) => {
+        const updatedCartItems = cartItems.map(item => {
+            if (item.id === itemId) {
+                return { ...item, giftWrap: !item.giftWrap };
+            }
+            return item;
+        });
+        // Update the cart items with the new state
+        // setCartItems should be a function passed from the parent that updates the cartItems state
+        setCartItems(updatedCartItems);
     };
 
     useEffect(() => {
@@ -47,21 +61,19 @@ const CheckoutPage = ({cartItems, removeItem}) => {
                         <span className="product-name">{item.name}</span>
                         <span className="product-price">{item.currency}{item.price.toFixed(2)}</span>
                         <span className="product-quantity">{item.quantity} pc.</span>
+                        <label htmlFor={`gift-wrap-${item.id}`}>
+                            <input
+                                type="checkbox"
+                                id={`gift-wrap-${item.id}`}
+                                checked={item.giftWrap}
+                                onChange={() => toggleGiftWrap(item.id)}
+                            />
+                            Gift wrap (+{giftWrapPrice}{item.currency})
+                        </label>
                         <button className="delete-item" onClick={() => removeItem(item.id)}>X</button>
                     </li>
                 ))}
             </ul>
-            <div className="gift-wrap-option">
-                <label htmlFor="gift-wrap">
-                    <input
-                        type="checkbox"
-                        id="gift-wrap"
-                        checked={isGiftWrapChecked}
-                        onChange={handleGiftWrapChange}
-                    />
-                    Gift wrap (+{giftWrapPrice}{cartItems.length > 0 ? cartItems[0].currency : 'USD'})
-                </label>
-            </div>
             <div className="total-price">
                 Total: {cartItems.length > 0 ? cartItems[0].currency : 'USD'}{calculateTotalPrice().toFixed(2)}
             </div>
