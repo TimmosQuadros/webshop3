@@ -2,14 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {shoppingCart} from "./shopping_cart.ts";
 // ... (other imports)
 
-// Define CartItem type and ShoppingCart class as before
-type CartItem = {
-    id: string;
-    name: string;
-    price: number;
-    currency: string;
-    quantity: number;
-};
 
 // CheckoutPage component
 const CheckoutPage = () => {

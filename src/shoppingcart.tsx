@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 // Define the CartItem type
-type CartItem = {
+export type CartItem = {
     id: string;
     name: string;
     price: number;
@@ -9,14 +9,30 @@ type CartItem = {
     quantity: number;
 };
 
+type GroupedCartItem = CartItem & { quantity: number, accumulatedPrice: number };
+
+
+
+
 type ShoppingCartProps = {
     cartItems: CartItem[];
     removeItem: (itemId: string) => void;
+    setCartItems: (items: CartItem[]) => void;
 };
 
 // ShoppingCart functional component
-const ShoppingCart: React.FC<ShoppingCartProps> = ({ cartItems,removeItem }) => {
-    const [items, setItems] = useState<CartItem[]>([]);
+const ShoppingCart: React.FC<ShoppingCartProps> = ({ cartItems, removeItem, setCartItems }) => {
+
+    const groupedCartItems = cartItems.reduce((acc: GroupedCartItem[], item: CartItem) => {
+        const existingItem = acc.find(i => i.id === item.id);
+        if (existingItem) return [...acc, {
+            ...existingItem,
+            quantity: existingItem.quantity + 1,
+            accumulatedPrice: existingItem.accumulatedPrice + item.price
+        }];
+        return [...acc, { ...item, quantity: 1, accumulatedPrice: item.price }];
+    }, [] as GroupedCartItem[]);
+
     // Function to add an item
     /*const addItem = (item: CartItem) => {
         setItems(prevItems => {
@@ -33,7 +49,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ cartItems,removeItem }) => 
 
     // Function to remove an item completely
     const removeAllItem = (itemId: string) => {
-        setItems(prevItems => prevItems.filter(item => item.id !== itemId));
+        setCartItems([]);
     };
 
     const removeItemLocal = (itemId: string) => {
@@ -54,12 +70,12 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ cartItems,removeItem }) => 
             <img src="/shopping-basket-solid.svg" alt="Shopping Cart"/>
             <span id="cart-count">{totalItems}</span>
             <div id="cart-summary" className="cart-summary">
-                {cartItems.length > 0 ? (
+                {groupedCartItems.length > 0 ? (
                     <ul className="cart-items-list">
-                        {cartItems.map((item) => (
+                        {groupedCartItems.map((item) => (
                             <li key={item.id} className="cart-item">
                                 <span className="product-name">{item.name}</span>
-                                <span className="product-price">{item.currency}{item.price.toFixed(2)}</span>
+                                <span className="product-price">{item.currency}{item.accumulatedPrice.toFixed(2)}</span>
                                 <span className="product-quantity">{item.quantity} pc.</span>
                                 <button className="delete-item" onClick={() => {removeItemLocal(item.id)
                                 }}>X
@@ -82,4 +98,4 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ cartItems,removeItem }) => 
     );
 };
 
-export default ShoppingCart;
+export { ShoppingCart };

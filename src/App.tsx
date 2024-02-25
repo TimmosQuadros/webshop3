@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import { shoppingCart, CartItem } from "./shopping_cart.ts";
-import ShoppingCart from './shoppingcart.tsx';
+import { ShoppingCart, CartItem } from './shoppingcart.tsx';
 import {DisplayProducts} from "./products.tsx";
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
@@ -13,26 +12,18 @@ import Contact from './Contact'; // You need to create this component
 
 function App() {
 
-    const [cartItems, setItems] = useState<CartItem[]>([]);
-
-    type GroupedCartItem = CartItem & { quantity: number };
-
-    const groupedCartItems = cartItems.reduce((acc: GroupedCartItem[], item) => {
-        const existingItem = acc.find(i => i.id === item.id);
-        if (existingItem) return [...acc, { ...existingItem, quantity: existingItem.quantity + 1 }];
-        return [...acc, { ...item, quantity: 1 }];
-    }, []);
+    const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
     const addItem = (item: CartItem) => {
-        setItems([...cartItems, item]);
+        setCartItems([...cartItems, item]);
     }
 
-    removeItem = (itemId: string) => {
-        setItems(cartItems.filter(item => item.id !== itemId));
+    const removeItem = (itemId: string) => {
+        setCartItems(cartItems.filter(item => item.id !== itemId));
     }
 
     // const addItem = (item: any) => {
-    //     setItems(prevItems => {
+    //     setCartItems(prevItems => {
     //         const existingItemIndex = prevItems.findIndex(i => i.id === item.id);
     //         if (existingItemIndex > -1) {
     //             const updatedItems = [...prevItems];
@@ -46,7 +37,7 @@ function App() {
     // };
 
     // const removeItem = (itemId: string) => {
-    //     setItems(currentItems =>
+    //     setCartItems(currentItems =>
     //         currentItems.reduce((acc, item) => {
     //             if (item.id === itemId && item.quantity > 1) {
     //                 acc.push({ ...item, quantity: item.quantity - 1 });
@@ -80,7 +71,7 @@ function App() {
                         <a href="/" className="home-logo">
                             <img src="/home-logo.png" alt="Home"/>
                         </a>
-                        <ShoppingCart cartItems={cartItems} />
+                        <ShoppingCart cartItems={cartItems} removeItem={removeItem} setCartItems={setCartItems} />
                         <div id="products" className="products-container">
                             <DisplayProducts addItem={addItem}></DisplayProducts>
                             {/* Products will be dynamically inserted here by displayProducts */}
