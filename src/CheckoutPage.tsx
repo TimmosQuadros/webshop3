@@ -36,6 +36,9 @@ const CheckoutPage = ({cartItems, removeItem}) => {
 
     return (
         <div className="checkout-page">
+            <div className="home-logo">
+                <img src="/home-logo.png" alt="Home"/>
+            </div>
             <h1>Checkout</h1>
             <ul className="cart-items-list">
                 {groupedCartItems.length === 0 && <li>Your cart is empty.</li>}
