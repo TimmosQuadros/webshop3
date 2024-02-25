@@ -25,13 +25,16 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ cartItems, removeItem, setC
 
     const groupedCartItems = cartItems.reduce((acc: GroupedCartItem[], item: CartItem) => {
         const existingItem = acc.find(i => i.id === item.id);
-        if (existingItem) return [...acc, {
-            ...existingItem,
-            quantity: existingItem.quantity + 1,
-            accumulatedPrice: existingItem.accumulatedPrice + item.price
-        }];
+        if (existingItem) {
+            const updatedGroupedItem = { ...existingItem, quantity: existingItem.quantity + 1, accumulatedPrice: existingItem.accumulatedPrice + item.price };
+            const filteredItems = acc.filter(i => i.id !== item.id);
+            return [...filteredItems, updatedGroupedItem];
+        }
         return [...acc, { ...item, quantity: 1, accumulatedPrice: item.price }];
     }, [] as GroupedCartItem[]);
+
+    console.log(cartItems);
+    console.log(groupedCartItems);
 
     // Function to add an item
     /*const addItem = (item: CartItem) => {
@@ -51,7 +54,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ cartItems, removeItem, setC
     const removeAllItem = (itemId: string) => {
         setCartItems([]);
     };
-    
+
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
     const totalCost = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
