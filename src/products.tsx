@@ -1,4 +1,5 @@
 import productsData from "./assets/products.json";
+import { CartItem } from "./shopping_cart.ts";
 
 // products.ts
 
@@ -65,21 +66,13 @@ export function displayProducts(shoppingCart: { addItem: (arg0: { id: string; na
     }
 }
 
-export const DisplayProducts = (shoppingCart: { addItem: (arg0: { id: string; name: string; price: number; currency: string; rebateQuantity: number; rebatePercent: number; upsellProductId: string | null; }) => void; }) => {
+export const DisplayProducts = (shoppingCart: { addItem: (arg0: CartItem) => void; }) => {
 
 
     const handleAddToBasket = (productId: string) => {
         const product = productsData.find(p => p.id === productId);
         if (product) {
-            shoppingCart.addItem({
-                id: product.id,
-                name: product.name,
-                price: product.price,
-                currency: product.currency,
-                rebateQuantity: product.rebateQuantity,
-                rebatePercent: product.rebatePercent,
-                upsellProductId: product.upsellProductId
-            });
+            shoppingCart.addItem(product);
         }
     };
     // Logic to generate product list based on the cart

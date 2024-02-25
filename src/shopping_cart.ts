@@ -1,4 +1,4 @@
-type CartItem = {
+export type CartItem = {
     id: string;
     name: string;
     price: number;
@@ -114,7 +114,7 @@ class ShoppingCart {
                 list.appendChild(checkoutButtonElement); // Append the checkout button to the list
 
                 // Optionally, add an event listener to the checkout button here
-                // @ts-ignore
+                // @ts-expect-error: Ignoring type checking for checkout button event listener.
                 checkoutButtonElement.querySelector('.checkout-button').addEventListener('click', () => {
                     //console.log('Proceeding to checkout...');
 
