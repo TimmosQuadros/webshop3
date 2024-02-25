@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // Define the CartItem type
 export type CartItem = {
@@ -58,6 +59,12 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ cartItems, removeItem, setC
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
     const totalCost = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
+    const navigate = useNavigate();
+    // Function to navigate to CheckoutPage
+    const navigateToCheckout = () => {
+        navigate('/checkout', { state: { cartItems: cartItems } });
+    };
+
     return (
         <div id="shopping-cart-icon" className="shopping-cart">
             <img src="/shopping-basket-solid.svg" alt="Shopping Cart"/>
@@ -78,8 +85,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ cartItems, removeItem, setC
                         <li className="cart-total">Total: {cartItems[0].currency}{totalCost.toFixed(2)}</li>
                         {/* Add checkout button */}
                         <li className="checkout-button-li">
-                            <button className="checkout-button" onClick={() => {/* handle checkout */
-                            }}>Checkout
+                            <button className="checkout-button" onClick={navigateToCheckout}>Checkout
                             </button>
                         </li>
                     </ul>

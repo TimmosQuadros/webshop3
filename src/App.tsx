@@ -7,7 +7,8 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 // Example additional pages
 import Home from './Home'; // You need to create this component
 import About from './About'; // You need to create this component
-import Contact from './Contact'; // You need to create this component
+import Contact from './Contact';
+import CheckoutPage from "./CheckoutPage.tsx"; // You need to create this component
 
 
 function App() {
@@ -66,6 +67,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/shop" element={
                     <>
                         <a href="/" className="home-logo">
