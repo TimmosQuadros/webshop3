@@ -15,11 +15,19 @@ function App() {
 
     const [cartItems, setItems] = useState<CartItem[]>([]);
 
-    const addItem2 = (item: CartItem) => {
+    type GroupedCartItem = CartItem & { quantity: number };
+
+    const groupedCartItems = cartItems.reduce((acc: GroupedCartItem[], item) => {
+        const existingItem = acc.find(i => i.id === item.id);
+        if (existingItem) return [...acc, { ...existingItem, quantity: existingItem.quantity + 1 }];
+        return [...acc, { ...item, quantity: 1 }];
+    }, []);
+
+    const addItem = (item: CartItem) => {
         setItems([...cartItems, item]);
     }
 
-    removeItem2 = (itemId: string) => {
+    removeItem = (itemId: string) => {
         setItems(cartItems.filter(item => item.id !== itemId));
     }
 
@@ -74,7 +82,7 @@ function App() {
                         </a>
                         <ShoppingCart cartItems={cartItems} />
                         <div id="products" className="products-container">
-                            <DisplayProducts addItem={addItem2}></DisplayProducts>
+                            <DisplayProducts addItem={addItem}></DisplayProducts>
                             {/* Products will be dynamically inserted here by displayProducts */}
                         </div>
                     </>
