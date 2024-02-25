@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 // Define the CartItem type
 export type CartItem = {
@@ -51,17 +51,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ cartItems, removeItem, setC
     const removeAllItem = (itemId: string) => {
         setCartItems([]);
     };
-
-    const removeItemLocal = (itemId: string) => {
-
-        console.log(cartItems.find((item) => (item.name)));
-    }
-
-    // Effect hook to update the UI (e.g., cart summary) when items change
-    useEffect(() => {
-
-    }, [items]);
-
+    
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
     const totalCost = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
@@ -77,7 +67,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ cartItems, removeItem, setC
                                 <span className="product-name">{item.name}</span>
                                 <span className="product-price">{item.currency}{item.accumulatedPrice.toFixed(2)}</span>
                                 <span className="product-quantity">{item.quantity} pc.</span>
-                                <button className="delete-item" onClick={() => {removeItemLocal(item.id)
+                                <button className="delete-item" onClick={() => {removeItem(item.id)
                                 }}>X
                                 </button>
                             </li>
