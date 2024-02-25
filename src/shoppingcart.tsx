@@ -22,7 +22,7 @@ type ShoppingCartProps = {
 };
 
 // ShoppingCart functional component
-const ShoppingCart: React.FC<ShoppingCartProps> = ({ cartItems, removeItem, setCartItems }) => {
+const ShoppingCart: React.FC<ShoppingCartProps> = ({ cartItems, removeItem }) => {
 
     const groupedCartItems = cartItems.reduce((acc: GroupedCartItem[], item: CartItem) => {
         const existingItem = acc.find(i => i.id === item.id);
@@ -34,27 +34,8 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ cartItems, removeItem, setC
         return [...acc, { ...item, quantity: 1, accumulatedPrice: item.price }];
     }, [] as GroupedCartItem[]);
 
-    console.log(cartItems);
-    console.log(groupedCartItems);
-
-    // Function to add an item
-    /*const addItem = (item: CartItem) => {
-        setItems(prevItems => {
-            const existingItemIndex = prevItems.findIndex(i => i.id === item.id);
-            if (existingItemIndex > -1) {
-                const updatedItems = [...prevItems];
-                updatedItems[existingItemIndex].quantity += item.quantity;
-                return updatedItems;
-            } else {
-                return [...prevItems, { ...item, quantity: 1 }];
-            }
-        });
-    };*/
-
-    // Function to remove an item completely
-    const removeAllItem = (itemId: string) => {
-        setCartItems([]);
-    };
+    //console.log(cartItems);
+    //console.log(groupedCartItems);
 
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
     const totalCost = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);

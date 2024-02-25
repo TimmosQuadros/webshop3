@@ -17,55 +17,6 @@ export const dummyProducts = [
     // Add more products as needed
 ];
 
-interface Product {
-    id: string;
-    name: string;
-    price: number;
-    currency: string;
-    rebateQuantity: number;
-    rebatePercent: number;
-    upsellProductId: string | null;
-}
-
-export function displayProducts(shoppingCart: { addItem: (arg0: { id: string; name: string; price: number; quantity: number; }) => void; }) {
-    const productsContainer = document.querySelector<HTMLDivElement>('#products');
-
-    const productsMap = new Map<string, Product>();
-    productsData.forEach((product: Product) => {
-        productsMap.set(product.id, product);
-    });
-    if (productsContainer) {
-        productsContainer.innerHTML = ''; // Clear existing products if any
-        productsMap.forEach(product => {
-            const productElement = document.createElement('div');
-            productElement.className = 'product';
-            productElement.innerHTML = `
-        <div class="product-image"><img src="ingenting" alt="${product.name}"></div>
-        <h4 class="product-name">${product.name}</h4>
-        <div class="product-price">$${product.price.toFixed(2)}</div>
-        <button class="add-to-basket" data-id="${product.id}">Add to Basket</button>
-      `;
-            productsContainer.appendChild(productElement);
-        });
-
-        productsContainer.addEventListener('click', (event) => {
-            const target = event.target as HTMLElement;
-            if (target.className === 'add-to-basket') {
-                const productId = target.getAttribute('data-id');
-                const product = dummyProducts.find(p => p.id === productId);
-                if (product) {
-                    shoppingCart.addItem({
-                        id: product.id,
-                        name: product.name,
-                        price: product.price,
-                        quantity: 1,
-                    });
-                }
-            }
-        });
-    }
-}
-
 export const DisplayProducts = (shoppingCart: { addItem: (arg0: CartItem) => void; }) => {
 
 

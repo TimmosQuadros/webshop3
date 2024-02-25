@@ -67,7 +67,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
-                <Route path="/checkout" element={<CheckoutPage />} />
+                <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeItem={removeItem}/>} />
                 <Route path="/shop" element={
                     <>
                         <a href="/" className="home-logo">
