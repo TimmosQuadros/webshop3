@@ -64,9 +64,9 @@ function App() {
             <Routes>
                 <Route path="/" element={
                     <>
-                        <a href="/" className="home-logo">
+                        <Link to="/" className="home-logo">
                             <img src="/home-logo.png" alt="Home"/>
-                        </a>
+                        </Link>
                         <ShoppingCart cartItems={cartItems} removeItem={removeItem} setCartItems={setCartItems} />
                         <div id="products" className="products-container">
                             <DisplayProducts addItem={addItem}></DisplayProducts>
@@ -79,9 +79,9 @@ function App() {
                 <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeItem={removeItem} setCartItems={setCartItems}/>} />
                 <Route path="/shop" element={
                     <>
-                        <a href="/" className="home-logo">
+                        <Link to="/" className="home-logo">
                             <img src="/home-logo.png" alt="Home"/>
-                        </a>
+                        </Link>
                         <ShoppingCart cartItems={cartItems} removeItem={removeItem} setCartItems={setCartItems} />
                         <div id="products" className="products-container">
                             <DisplayProducts addItem={addItem}></DisplayProducts>
