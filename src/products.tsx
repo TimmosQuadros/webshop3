@@ -1,5 +1,5 @@
 import productsData from "./assets/products.json";
-import { CartItem } from "./shopping_cart.ts";
+import { CartItem } from "./shoppingcart.tsx";
 
 // products.ts
 

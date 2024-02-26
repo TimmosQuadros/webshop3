@@ -1,15 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 //import { useLocation } from 'react-router-dom';
 import {CartItem} from "./shoppingcart.tsx";
 // ... (other imports)
 
 type GroupedCartItem = CartItem & { quantity: number, accumulatedPrice: number };
 // CheckoutPage component
-const CheckoutPage = ({cartItems, removeItem, setCartItems}) => {
+
+interface CheckoutPageProps {
+    cartItems: CartItem[];
+    removeItem: (itemId: string) => void;
+    setCartItems: (items: CartItem[]) => void;
+}
+
+
+// ... (other imports)
+const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCartItems}) => {
     console.log(removeItem);
     //const location = useLocation();
     //const cartItems = location.state?.cartItems;
-    const [isGiftWrapChecked, setIsGiftWrapChecked] = useState(false);
+    //const [isGiftWrapChecked, setIsGiftWrapChecked] = useState(false);
     const giftWrapPrice = 5; // Adjust as needed
 
     const groupedCartItems = cartItems.reduce((acc: GroupedCartItem[], item: CartItem) => {
@@ -22,7 +31,7 @@ const CheckoutPage = ({cartItems, removeItem, setCartItems}) => {
         return [...acc, { ...item, quantity: 1, accumulatedPrice: item.price }];
     }, [] as GroupedCartItem[]);
 
-    const handleGiftWrapChange = () => setIsGiftWrapChecked(!isGiftWrapChecked);
+    //const handleGiftWrapChange = () => setIsGiftWrapChecked(!isGiftWrapChecked);
 
     const calculateTotalPrice = () => {
         const basePrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);

@@ -4,7 +4,7 @@ import { ShoppingCart, CartItem } from './shoppingcart.tsx';
 import {DisplayProducts} from "./products.tsx";
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
-import Home from './Home';
+//import Home from './Home';
 import About from './About';
 import Contact from './Contact';
 import CheckoutPage from "./CheckoutPage.tsx";
