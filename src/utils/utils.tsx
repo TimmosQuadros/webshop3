@@ -1,9 +1,3 @@
-// Mock data for Danish zip codes to cities mapping
-const zipToCityMap: { [zipCode: string]: string } = {
-    '1000': 'Copenhagen',
-    // Add more mappings as needed
-};
-
 /**
  * Fetches the city name from a given Danish zip code.
  * @param zipCode The zip code to query for its city name.

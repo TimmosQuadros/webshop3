@@ -265,6 +265,65 @@ nav ul li a:hover {
   /* Add more styling as needed */
 }
 
+/* Add this CSS to your stylesheet */
+.delivery-address-column {
+  background-color: #f8f8f8; /* Light grey background for the form area */
+  padding: 20px; /* Padding around the form content */
+  border-radius: 8px; /* Slightly rounded corners for the form */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+  margin-right: 20px; /* Adds some space between this column and the next */
+}
+
+.address-form {
+  display: flex;
+  flex-direction: column; /* Stack form fields vertically */
+}
+
+.address-form input[type="text"],
+.address-form input[type="email"] {
+  padding: 10px;
+  margin-bottom: 10px; /* Space between form fields */
+  border: 1px solid #ccc; /* Standard border */
+  border-radius: 4px; /* Slightly rounded edges for the input fields */
+}
+
+.address-form input[type="text"]:focus,
+.address-form input[type="email"]:focus {
+  border-color: #007bff; /* Highlight color when input is focused */
+  outline: none; /* Removes the default focus outline */
+}
+
+.form-errors {
+  color: #ff0000; /* Red color for errors */
+  margin-top: 10px; /* Space above the error list */
+}
+
+/* Style adjustments for invalid inputs */
+.address-form input[type="text"]:not(:focus):invalid,
+.address-form input[type="email"]:not(:focus):invalid {
+  border-color: red;
+  background-color: #fff0f0;
+}
+
+/* Style adjustments for valid inputs */
+.address-form input[type="text"]:valid,
+.address-form input[type="email"]:valid {
+  border-color: green;
+}
+
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column;
+  }
+
+  .delivery-address-column,
+  .cart-items-column {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+}
+
+
 /* Responsive adjustments */
 @media (max-width: 600px) {
   nav ul {
