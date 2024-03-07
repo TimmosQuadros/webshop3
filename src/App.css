@@ -237,6 +237,34 @@ nav ul li a:hover {
   color: #ffdb4d;
 }
 
+.checkout-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.header {
+  margin-top: 20px; /* Adjust as needed */
+}
+
+.checkout-title {
+  margin-top: 20px; /* Adjust as needed */
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  width: 80%; /* Adjust width as needed */
+  margin-top: 20px; /* Adjust as needed */
+}
+
+.delivery-address-column, .cart-items-column {
+  flex: 1;
+  padding: 20px;
+  /* Add more styling as needed */
+}
+
 /* Responsive adjustments */
 @media (max-width: 600px) {
   nav ul {
@@ -248,4 +276,6 @@ nav ul li a:hover {
     margin: 10px 0; /* Adjust spacing for stacked layout */
   }
 }
+
+
 
