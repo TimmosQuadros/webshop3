@@ -1,8 +1,8 @@
 import {render, screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from "vitest";
-import App from "../App";
-import CheckoutPage from "../CheckoutPage.tsx";
+import App from "../App.tsx";
+import CheckoutPage from "../routes/CheckoutPage.tsx";
 
 describe(App.name, () => {
 

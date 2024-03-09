@@ -1,4 +1,4 @@
-import productsData from "./assets/products.json";
+import productsData from "../assets/products.json";
 import { CartItem } from "./shoppingcart.tsx";
 
 // products.ts

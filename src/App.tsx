@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import './App.css'
-import { ShoppingCart, CartItem } from './shoppingcart.tsx';
-import {DisplayProducts} from "./products.tsx";
+import './css/App.css'
+import { ShoppingCart, CartItem } from './components/shoppingcart.tsx';
+import {DisplayProducts} from "./components/products.tsx";
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 //import Home from './Home';
-import About from './About';
-import Contact from './Contact';
-import CheckoutPage from "./CheckoutPage.tsx";
+import About from './routes/About.tsx';
+import Contact from './routes/Contact.tsx';
+import CheckoutPage from "./routes/CheckoutPage.tsx";
 
 function App() {
 

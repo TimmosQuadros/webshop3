@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 //import { useLocation } from 'react-router-dom';
-import {CartItem} from "./shoppingcart.tsx";
-import { validateEmail, validatePhoneNumber, fetchCityNameFromZip, validateVATNumber } from './utils/utils.tsx';
+import {CartItem} from "../components/shoppingcart.tsx";
+import { validateEmail, validatePhoneNumber, fetchCityNameFromZip, validateVATNumber } from '../utils/utils.tsx';
 
 
 type GroupedCartItem = CartItem & { quantity: number, accumulatedPrice: number };
