@@ -323,6 +323,38 @@ nav ul li a:hover {
   }
 }
 
+.billing-address-form {
+  display: flex;
+  flex-direction: column; /* Stack form fields vertically */
+}
+
+.billing-address-form input[type="text"],
+.billing-address-form input[type="email"] {
+  padding: 10px;
+  margin-bottom: 10px; /* Space between form fields */
+  border: 1px solid #ccc; /* Standard border */
+  border-radius: 4px; /* Slightly rounded edges for the input fields */
+}
+
+.billing-address-form input[type="text"]:focus,
+.billing-address-form input[type="email"]:focus {
+  border-color: #007bff; /* Highlight color when input is focused */
+  outline: none; /* Removes the default focus outline */
+}
+
+/* Style adjustments for invalid inputs */
+.billing-address-form input[type="text"]:not(:focus):invalid,
+.billing-address-form input[type="email"]:not(:focus):invalid {
+  border-color: red;
+  background-color: #fff0f0;
+}
+
+/* Style adjustments for valid inputs */
+.billing-address-form input[type="text"]:valid,
+.billing-address-form input[type="email"]:valid {
+  border-color: green;
+}
+
 
 /* Responsive adjustments */
 @media (max-width: 600px) {

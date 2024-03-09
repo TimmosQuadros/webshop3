@@ -17,7 +17,7 @@ interface CheckoutPageProps {
 // ... (other imports)
 const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCartItems}) => {
     const giftWrapPrice = 5; // Adjust as needed
-    // Add state for the form fields
+    // To Add state for the form fields
     const [country, setCountry] = useState('Denmark'); // Limited to Denmark for now
     const [zipCode, setZipCode] = useState('');
     const [city, setCity] = useState('');
@@ -35,7 +35,21 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
     const [vatValidation, setVatValidation] = useState(true); // true means valid
     const [zipValidation, setZipValidation] = useState(true); // Assume true means valid initially
 
+    // Billing address
+    const [isBillingSameAsDelivery, setIsBillingSameAsDelivery] = useState(true);
+    const [billingZipCode, setBillingZipCode] = useState('');
+    const [billingCity, setBillingCity] = useState('');
+    const [billingCountry, setBillingCountry] = useState('Denmark'); // Assuming default as Denmark
+    const [billingName, setBillingName] = useState('');
+    const [billingPhone, setBillingPhone] = useState('');
+    const [billingEmail, setBillingEmail] = useState('');
+    const [billingAddressLine1, setBillingAddressLine1] = useState('');
+    const [billingAddressLine2, setBillingAddressLine2] = useState('');
+    const [billingPhoneValidation, setBillingPhoneValidation] = useState(true);
+    const [billingEmailValidation, setBillingEmailValidation] = useState(true);
+    const [billingZipValidation, setBillingZipValidation] = useState(true);
 
+    // Form errors
     const [formErrors, setFormErrors] = useState<string[]>([]);
 
 
@@ -137,6 +151,59 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
                 }
             });
     };
+    const handleBillingPhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setBillingPhone(value);
+        const isValid = validatePhoneNumber(value);
+        setBillingPhoneValidation(isValid); // Update phone validation state
+
+        // Update formErrors based on validation
+        const newErrors = formErrors.filter(error => error !== "Invalid phone number"); // Remove the phone error if it exists
+        if (!isValid && !formErrors.includes("Invalid phone number")) {
+            newErrors.push("Invalid phone number");
+        }
+        setFormErrors(newErrors);
+    };
+    const handleBillingEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setBillingEmail(value); // Assuming you have setEmail from useState for email
+        const isValid = validateEmail(value);
+        setBillingEmailValidation(isValid); // Update email validation state
+
+        // Update formErrors based on validation
+        const newErrors = formErrors.filter(error => error !== "Invalid email"); // Remove the email error if it exists
+        if (!isValid && !formErrors.includes("Invalid email")) {
+            newErrors.push("Invalid email");
+        }
+        setFormErrors(newErrors);
+    };
+
+    // Handler for billing zip code change (similarly for other fields as needed)
+    const handleBillingZipChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setBillingZipCode(value); // Assuming you have setZipCode from useState for zipCode
+
+        fetchCityNameFromZip(value)
+            .then(cityNames => {
+                if (cityNames.length === 1 && value.length === 4) {
+                    setBillingCity(cityNames[0]); // Assuming you're showing the city name somewhere
+                    setBillingZipValidation(true);
+                    setFormErrors(prevErrors => prevErrors.filter(error => error !== "Invalid zip code"));
+                } else {
+                    // Either no city found or multiple possible cities, which is treated as invalid
+                    setBillingZipValidation(false);
+                    if (!formErrors.includes("Invalid zip code")) {
+                        setFormErrors(prevErrors => [...prevErrors, "Invalid zip code"]);
+                    }
+                }
+            })
+            .catch(() => {
+                setBillingZipValidation(false);
+                if (!formErrors.includes("Invalid zip code")) {
+                    setFormErrors(prevErrors => [...prevErrors, "Invalid zip code"]);
+                }
+            });
+    };
 
 
 
@@ -190,6 +257,27 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
                 style={{borderColor: vatValidation ? 'green' : 'red'}}
             />
             {/* Add more form fields as needed */}
+
+            {!isBillingSameAsDelivery && (
+                <div className="billing-address-form">
+                    <h2>Billing Address</h2>
+                    <input type="text" placeholder="Billing Name" value={billingName} onChange={e => setBillingName(e.target.value)} />
+                    <input type="text" placeholder="Billing Phone" value={billingPhone} onChange={handleBillingPhoneChange} style={{borderColor: billingPhoneValidation ? 'green' : 'red'}} />
+                    <input type="email" placeholder="Billing Email" value={billingEmail} onChange={handleBillingEmailChange} style={{borderColor: billingEmailValidation ? 'green' : 'red'}} />
+                    <input type="text" placeholder="Billing Address Line 1" value={billingAddressLine1} onChange={e => setBillingAddressLine1(e.target.value)} />
+                    <input type="text" placeholder="Billing Address Line 2" value={billingAddressLine2} onChange={e => setBillingAddressLine2(e.target.value)} />
+                    <input type="text" placeholder="Billing Zip Code" value={billingZipCode} onChange={handleBillingZipChange} style={{borderColor: billingZipValidation ? 'green' : 'red'}} />
+                    <input type="text" placeholder="Billing City" value={billingCity} onChange={e => setBillingCity(e.target.value)} disabled/>
+                    <input type="text" placeholder="Billing Country" value={billingCountry} onChange={e => setBillingCountry(e.target.value)} disabled/>
+                    {/* Add more fields as necessary */}
+                </div>
+            )}
+
+            <input type="checkbox"
+                   checked={isBillingSameAsDelivery}
+                   onChange={e => setIsBillingSameAsDelivery(e.target.checked)}
+            />
+            <label htmlFor="billingSameAsDelivery">Billing address same as delivery address ?</label>
         </form>
     );
 
