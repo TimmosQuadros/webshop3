@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: "jsdom",
+    globals: true, // This enables global variables like `vi`
     setupFiles: ["./src/test/vitest.setup.ts"],
   },
 });

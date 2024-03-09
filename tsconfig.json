@@ -18,8 +18,14 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Add vitest/globals to your types array */
+    "types": ["vitest/globals"]
   },
-  "include": ["src", "./test/vitest.setup.ts"],
+  "include": [
+    "src",
+    "./test/vitest.setup.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
