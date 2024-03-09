@@ -158,6 +158,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
                 style={{borderColor: phoneValidation ? 'green' : 'red'}}
             />
             <input
+                data-testid="emailInput"
                 type="email"
                 placeholder="Email"
                 value={email}
