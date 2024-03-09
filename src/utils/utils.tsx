@@ -19,7 +19,7 @@ export const fetchCityNameFromZip = (zipCode: string): Promise<string[]> => {
                     // The API returns multiple possible matches for the zip code,
                     // so you could resolve with all matched city names, or just the first one.
                     // Here, we resolve with an array of all matched city names.
-                    const cityNames = data.map(item => item.postnummer.navn);
+                    const cityNames = data.map((item: { postnummer: { navn: never; }; }) => item.postnummer.navn);
                     console.log(data);
                     resolve(cityNames);
                 } else {
@@ -39,7 +39,7 @@ export const fetchCityNameFromZip = (zipCode: string): Promise<string[]> => {
  * @returns True if the email is valid, otherwise false.
  */
 export const validateEmail = (email: string): boolean => {
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\\.,;:\s@"]+\.)+[^<>()[\]\\.,;:\s@"]{2,})$/i;
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\\.,;:\s@"]+\.)+[^<>()[\]\\.,;:\s@"]{2,})$/i;
     return re.test(email.toLowerCase());
 };
 

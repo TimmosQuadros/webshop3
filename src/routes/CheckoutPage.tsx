@@ -143,6 +143,8 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
     useEffect(() => {
         // Update total price on cart change
         calculateTotalPrice();
+        //TODO Remove next line when setCountry feature is implemented!!!
+        setCountry('Denmark');
     }, [cartItems, zipCode, country]);
 
     // Address form JSX
