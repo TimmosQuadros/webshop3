@@ -35,9 +35,6 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ cartItems, removeItem }) =>
         return [...acc, { ...item, quantity: 1, accumulatedPrice: item.price }];
     }, [] as GroupedCartItem[]);
 
-    //console.log(cartItems);
-    //console.log(groupedCartItems);
-
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
     const totalCost = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 

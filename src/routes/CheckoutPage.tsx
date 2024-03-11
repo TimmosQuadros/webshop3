@@ -14,7 +14,6 @@ interface CheckoutPageProps {
 }
 
 
-// ... (other imports)
 const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCartItems}) => {
     const giftWrapPrice = 5; // Adjust as needed
     // To Add state for the form fields
@@ -31,15 +30,15 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
 
     // Inside CheckoutPage component
     const [phoneValidation, setPhoneValidation] = useState(true); // true means valid
-    const [emailValidation, setEmailValidation] = useState(true); // true means valid
-    const [vatValidation, setVatValidation] = useState(true); // true means valid
-    const [zipValidation, setZipValidation] = useState(true); // Assume true means valid initially
+    const [emailValidation, setEmailValidation] = useState(true); // 
+    const [vatValidation, setVatValidation] = useState(true); // 
+    const [zipValidation, setZipValidation] = useState(true); //
 
     // Billing address
     const [isBillingSameAsDelivery, setIsBillingSameAsDelivery] = useState(true);
     const [billingZipCode, setBillingZipCode] = useState('');
     const [billingCity, setBillingCity] = useState('');
-    const [billingCountry, setBillingCountry] = useState('Denmark'); // Assuming default as Denmark
+    const [billingCountry, setBillingCountry] = useState('Denmark'); 
     const [billingName, setBillingName] = useState('');
     const [billingPhone, setBillingPhone] = useState('');
     const [billingEmail, setBillingEmail] = useState('');
@@ -100,7 +99,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
         const value = e.target.value;
         setPhone(value);
         const isValid = validatePhoneNumber(value);
-        setPhoneValidation(isValid); // Update phone validation state
+        setPhoneValidation(isValid);
 
         // Update formErrors based on validation
         const newErrors = formErrors.filter(error => error !== "Invalid phone number"); // Remove the phone error if it exists
