@@ -68,7 +68,19 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
     const calculateTotalPrice = () => {
         const basePrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
         const giftWrapTotal = cartItems.reduce((total, item) => total + (item.giftWrap ? giftWrapPrice * item.quantity : 0), 0);
-        return basePrice + giftWrapTotal;
+        let totalPrice = basePrice + giftWrapTotal;
+    
+        // Apply a 10% discount for orders over $300
+        if (totalPrice > 3000) {
+            totalPrice *= 0.9; // Deduct 10%
+        }
+    
+        return totalPrice;
+    };
+
+    // Calculate total quantity of items in the cart (including quantity of each item)
+    const calculateTotalQuantity = () => {
+        return cartItems.reduce((total, item) => total + item.quantity, 0);
     };
 
     // Add or update a function to toggle gift wrap for an individual item
@@ -281,6 +293,8 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
         </form>
     );
 
+    
+
     return (
         <div className="checkout-page">
             <div className="header">
@@ -327,6 +341,12 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
                     </div>
                     <button className="checkout-button">Proceed to Checkout</button>
                 </div>
+                {/* Display the nudge message if total quantity is greater than or equal to 2 */}
+            {calculateTotalQuantity() >= 2 && (
+              <div className="increase-quantity-nudge">
+                Increase quantity of items to get a discount!
+              </div>
+            )}
             </div>
         </div>
     );

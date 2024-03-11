@@ -368,5 +368,25 @@ nav ul li a:hover {
   }
 }
 
+@keyframes popUp {
+  0% {
+    transform: translateY(100%); /* Start offscreen */
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0); /* Move to the original position */
+    opacity: 1;
+  }
+}
 
-
+.increase-quantity-nudge {
+  background-color: #4fd67a; /* Yellow background for the nudge */
+  padding: 12px; /* Adjust padding for more height */
+  border-radius: 8px; /* Adjust border-radius */
+  font-size: 18px; /* Adjust font-size for larger text */
+  text-align: center;
+  position: absolute;
+  bottom: 15px; /* Adjust bottom spacing */
+  right: 15px; /* Adjust right spacing */
+  animation: popUp 0.5s ease-out; /* Animation duration and easing */
+}
