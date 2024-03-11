@@ -341,7 +341,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
                     <button className="checkout-button">Proceed to Checkout</button>
                 </div>
                 {/* Display the nudge message if total price is less than 3000*/}
-            {calculateTotalPrice() <= 3000 &&(
+            {(calculateTotalPrice() <= 3000 && calculateTotalQuantity() > 0) &&(
               <div className="increase-quantity-nudge">
                 Increase quantity of items to get a discount!
               </div>
