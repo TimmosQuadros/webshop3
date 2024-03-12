@@ -59,7 +59,7 @@ describe(App.name, () => {
         await waitFor(() => {
             const errorMessageQuery = screen.queryByText('Invalid VAT number');
             expect(errorMessageQuery).toBeNull(); // The error message should not be found
-            expect(vatInput).toHaveStyle('border-color: green');
+            expect(vatInput).toHaveStyle('border-color: #00ff00');
         });
     });
 
@@ -83,7 +83,7 @@ describe(App.name, () => {
         await waitFor(() => {
             const errorMessageQuery = screen.queryByText('Invalid phone number');
             expect(errorMessageQuery).toBeNull(); // The error message should not be found
-            expect(phoneInput).toHaveStyle('border-color: green');
+            expect(phoneInput).toHaveStyle('border-color: #00ff00');
         });
     });
 
@@ -98,7 +98,7 @@ describe(App.name, () => {
         await userEvent.clear(emailInput);
         await userEvent.type(emailInput, 'valid@example.com');
         //await waitFor(() => {
-        expect(emailInput).toHaveStyle('border-color: green');
+        expect(emailInput).toHaveStyle('border-color: #00ff00');
         //});
     });
 
