@@ -51,8 +51,10 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
     // Form errors
     const [formErrors, setFormErrors] = useState<string[]>([]);
 
+    // GroupedCartItems
+    const [groupedCartItems, setGroupedCartItems] = useState<GroupedCartItem[]>([]);
 
-    const groupedCartItems = cartItems.reduce((acc: GroupedCartItem[], item: CartItem) => {
+    /*const groupedCartItems = cartItems.reduce((acc: GroupedCartItem[], item: CartItem) => {
         const existingItem = acc.find(i => i.id === item.id);
         if (existingItem) {
             const updatedGroupedItem = { ...existingItem, quantity: existingItem.quantity + 1, accumulatedPrice: existingItem.accumulatedPrice + item.price };
@@ -60,7 +62,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
             return [...filteredItems, updatedGroupedItem];
         }
         return [...acc, { ...item, quantity: 1, accumulatedPrice: item.price }];
-    }, [] as GroupedCartItem[]);
+    }, [] as GroupedCartItem[]);*/
 
     //const handleGiftWrapChange = () => setIsGiftWrapChecked(!isGiftWrapChecked);
 
@@ -223,6 +225,19 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
         calculateTotalPrice();
         //TODO Remove next line when setCountry feature is implemented!!!
         setCountry('Denmark');
+
+        const newGroupedCartItems = cartItems.reduce((acc: GroupedCartItem[], item: CartItem) => {
+            const existingItem = acc.find(i => i.id === item.id);
+            if (existingItem) {
+                const updatedGroupedItem = { ...existingItem, quantity: existingItem.quantity + item.quantity, accumulatedPrice: existingItem.accumulatedPrice + item.price * item.quantity };
+                const filteredItems = acc.filter(i => i.id !== item.id);
+                return [...filteredItems, updatedGroupedItem];
+            }
+            return [...acc, { ...item, quantity: item.quantity, accumulatedPrice: item.price * item.quantity }];
+        }, []);
+
+        setGroupedCartItems(newGroupedCartItems);
+
     }, [cartItems, zipCode, country]);
 
     // Address form JSX
@@ -292,7 +307,27 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
         </form>
     );
 
-    
+    function setItemQuantity(itemId: string, newQuantity: number) {
+        // Ensure the new quantity is at least 1
+        const updatedQuantity = Math.max(newQuantity, 1);
+
+        console.log(itemId, newQuantity, updatedQuantity);
+
+        // Map through the existing cartItems to find and update the quantity of the specific item
+        const updatedCartItems = groupedCartItems.map(item => {
+            if (item.id === itemId) {
+                // If the item ID matches, update the quantity
+                return { ...item, quantity: updatedQuantity };
+            }
+
+            // For items that don't match, return them unchanged
+            return item;
+        });
+
+        // Update the cart items with the new state
+        setCartItems(updatedCartItems);
+        
+    }
 
     return (
         <div className="checkout-page">
@@ -321,6 +356,17 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
                             <li key={item.id} className="cart-item">
                                 <span className="product-name">{item.name}</span>
                                 <span className="product-price">{item.currency}{item.price.toFixed(2)}</span>
+
+                                <div className="product-quantity-controls">
+                                    <input
+                                        className="quantity-input"
+                                        type="number"
+                                        value={item.quantity}
+                                        onChange={(e) => setItemQuantity(item.id, parseInt(e.target.value))}
+                                        min="1"
+                                    />
+                                </div>
+
                                 <span className="product-quantity">{item.quantity} pc.</span>
                                 <label htmlFor={`gift-wrap-${item.id}`}>
                                     <input

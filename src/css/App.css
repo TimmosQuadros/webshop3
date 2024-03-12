@@ -390,3 +390,14 @@ nav ul li a:hover {
   right: 15px;
   animation: popUp 0.5s ease-out;
 }
+
+.product-name,
+.product-price,
+.product-quantity-controls,
+.product-quantity {
+  margin-right: 5px; /* Add more space to the right of each item */
+}
+
+.quantity-input {
+  width: 50%;
+}
