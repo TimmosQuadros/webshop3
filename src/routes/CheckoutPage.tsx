@@ -73,6 +73,92 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
         }));
     };
 
+    // Submit form
+    const [buttonText, setButtonText] = useState('Proceed to Checkout');
+    const [isFormReadyForSubmit, setIsFormReadyForSubmit] = useState(false);
+
+    const handleCheckoutButtonClick = () => {
+        // First click: Check for form errors
+        if (buttonText === 'Proceed to Checkout') {
+            if (formErrors.length === 0) {
+                setButtonText('Place Order');
+                setIsFormReadyForSubmit(true); // Allow the form to be submitted on the next click
+            } else {
+                alert('Please correct the form errors before proceeding.');
+            }
+        }
+        // Second click: Submit the form
+        else if (buttonText === 'Place Order' && isFormReadyForSubmit) {
+            // Here we should gather the form data and submit it
+            submitFormData();
+        }
+    };
+
+    const submitFormData = () => {
+        // Prepare cart items data
+        const cartItemsData = groupedCartItems.map(item => ({
+            id: item.id,
+            name: item.name,
+            quantity: item.quantity,
+            price: item.price,
+            giftWrap: item.giftWrap,
+        }));
+
+        // Determine payment method details
+        let paymentDetails = {};
+        if (paymentMethod === 'mobilePay') {
+            paymentDetails = {
+                mobilePayNumber,
+            };
+        } else if (paymentMethod === 'giftCard') {
+            paymentDetails = {
+                giftCardNumber: giftCardDetails.number,
+                giftCardAmount: giftCardDetails.amount,
+            };
+        }
+
+        // Create the formData object
+        const formData = {
+            name,
+            phone,
+            email,
+            addressLine1,
+            addressLine2,
+            city,
+            zipCode,
+            country,
+            companyName,
+            companyVATNumber,
+            cartItems: cartItemsData,
+            totalPrice: calculateTotalPrice().toFixed(2),
+            paymentMethod,
+            paymentDetails,
+            acceptTerms,
+            acceptMarketing,
+            orderComment,
+        };
+
+        // Perform the submission
+        fetch('https://eokey0hl88641a2.m.pipedream.net', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                alert('Order placed successfully!');
+                // Here, we might want to reset the form or redirect the user
+                setButtonText('Proceed to Checkout');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('An error occurred while submitting your order.');
+            });
+    };
+
     /*const groupedCartItems = cartItems.reduce((acc: GroupedCartItem[], item: CartItem) => {
         const existingItem = acc.find(i => i.id === item.id);
         if (existingItem) {
@@ -465,7 +551,8 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
                         {/* Implement the "Proceed to Checkout" button and its logic here */}
                     </div>
 
-                    <button className="checkout-button">Proceed to Checkout</button>
+                    <button className="checkout-button" onClick={handleCheckoutButtonClick}>{buttonText}</button>
+
                 </div>
                 {/* Display the nudge message if total price is less than 3000*/}
                 {(calculateTotalPrice() <= 3000 && calculateTotalQuantity() > 0) && (
