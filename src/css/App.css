@@ -81,11 +81,13 @@
 }
 
 .shopping-cart {
-  z-index: 100; /* Lower than navbar */
+  z-index: 1030; /* Lower than navbar */
   position: fixed;
   right: 20px;
   top: 60px; /* Adjusted the top position to be below the navbar */
 }
+
+
 
 .shopping-cart img {
   width: 30px;
@@ -156,8 +158,9 @@
     top: 10px;
     left: 50%; /* Centers the element in the viewport */
     transform: translateX(-50%);
-    z-index: 1000; /* Ensure it's above other content */
+    z-index: 1020; /* Ensure it's above other content */
     cursor: pointer;
+    margin-top: 9999px;
   }
 }
 
@@ -203,7 +206,7 @@
 }
 
 /* Navbar.css */
-nav {
+.nav {
   background-color: #004d99;
   padding: 10px 20px;
   position: fixed;
@@ -503,5 +506,109 @@ nav ul li a:hover {
 }
 
 /* Additional styles for responsiveness and aesthetics */
+
+.hamburger-menu {
+  cursor: pointer;
+  display: none; /* Initially hidden */
+  font-size: 30px;
+  z-index: 1050; /* Ensure it's above the .nav */
+  color: #ffffff;
+}
+
+/* Adjustments for the menu to support responsive behavior */
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex; /* Maintain the horizontal layout on desktop */
+  width: 100%; /* Full width to support contained menu items */
+  justify-content: center; /* Center menu items */
+  transform: none;
+  transition: none;
+}
+
+.menu li {
+  margin: 0 15px;
+}
+
+.menu li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.menu li a:hover {
+  color: #ffdb4d;
+}
+
+/* Responsive adjustments for the menu */
+@media (max-width: 768px) {
+  .hamburger-menu {
+    display: block; /* Show the menu icon on smaller screens */
+  }
+
+  .menu {
+    flex-direction: column; /* Stack the menu items vertically */
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #004d99; /* Match the navbar color */
+    width: 50%; /* Full width */
+    height: 100vh; /* Full viewport height */
+    transform: translateX(-100%); /* Start off-screen */
+    transition: transform 0.3s ease-in-out;
+    padding-top: 60px; /* Adjust based on your nav height */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    z-index: 1040; /* Ensure menu is above other content but below the hamburger icon */
+  }
+
+  .menu.open {
+    transform: translateX(0); /* Bring into view */
+  }
+
+  .menu li {
+    margin: 20px 0; /* Increase spacing for touch targets */
+  }
+
+  .cart-summary {
+    /* Make the cart summary take the full width minus some margin on the right */
+    width: calc(100%); /* Adjust this value so the cart-summary doesn't overflow the screen width */
+    right: 100%; /* Make sure this is the same as the margin of the shopping cart icon */
+    top: 60px; /* Adjust if necessary to align below the shopping cart icon */
+    box-sizing: border-box; /* Include padding and border in the width */
+    z-index: 1031; /* Above the shopping cart icon */
+    display: none; /* Hide by default, will be shown on hover */
+  }
+
+  /* This ensures that the cart summary appears on hover */
+  .shopping-cart:hover .cart-summary,
+  .cart-summary:hover {
+    display: block; /* Show the cart summary */
+    position: absolute;
+  }
+
+  .shopping-cart {
+    z-index: 1030; /* Ensure the z-index is lower than .cart-summary for hover to work */
+    position: fixed;
+    right: 20px; /* Adjusted the right position */
+    top: 80px; /* Adjust the top position to give space for the hamburger menu */
+  }
+
+  /* Responsive adjustments for the cart total */
+  .cart-total {
+    margin-top: 10px;
+    font-weight: bold;
+    /* Adjust font size if necessary for smaller screens */
+    font-size: 18px; /* This is just an example, adjust as needed */
+  }
+
+  /* Ensure the shopping cart icon is clickable and above the cart summary */
+  .shopping-cart {
+    z-index: 1052; /* Higher than .cart-summary */
+    /* Other necessary styles */
+  }
+}
+
+
 
 

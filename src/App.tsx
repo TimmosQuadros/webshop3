@@ -21,6 +21,12 @@ function App() {
         setCartItems(cartItems.filter((item: { id: string; }) => item.id !== itemId));
     }
 
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
     // const addItem = (item: any) => {
     //     setCartItems(prevItems => {
     //         const existingItemIndex = prevItems.findIndex(i => i.id === item.id);
@@ -51,38 +57,40 @@ function App() {
 
     return (
         <Router>
-            <nav>
-                <ul>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/about">About</Link></li>
-                    <li><Link to="/contact">Contact</Link></li>
-                    <li><Link to="/shop">Shop</Link></li> {/* This is top bar */}
+            <nav className="nav">
+                <div className="hamburger-menu" onClick={toggleMenu}>
+                    &#9776;
+                </div>
+                <ul className={`menu ${isMenuOpen ? 'open' : ''}`}>
+                    <li><Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link></li>
+                    <li><Link to="/about" onClick={() => setIsMenuOpen(false)}>About</Link></li>
+                    <li><Link to="/contact" onClick={() => setIsMenuOpen(false)}>Contact</Link></li>
+                    <li><Link to="/shop" onClick={() => setIsMenuOpen(false)}>Shop</Link></li>
                 </ul>
             </nav>
-
-            {/* Define your routes */}
             <Routes>
                 <Route path="/" element={
                     <>
                         <Link to="/" className="home-logo">
                             <img src="/home-logo.png" alt="Home"/>
                         </Link>
-                        <ShoppingCart cartItems={cartItems} removeItem={removeItem} setCartItems={setCartItems} />
+                        <ShoppingCart cartItems={cartItems} removeItem={removeItem} setCartItems={setCartItems}/>
                         <div id="products" className="products-container">
                             <DisplayProducts addItem={addItem}></DisplayProducts>
                             {/* Products will be dynamically inserted here by displayProducts */}
                         </div>
                     </>
                 }/>
-                <Route path="/about" element={<About />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeItem={removeItem} setCartItems={setCartItems}/>} />
+                <Route path="/about" element={<About/>}/>
+                <Route path="/contact" element={<Contact/>}/>
+                <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} removeItem={removeItem}
+                                                               setCartItems={setCartItems}/>}/>
                 <Route path="/shop" element={
                     <>
                         <Link to="/" className="home-logo">
                             <img src="/home-logo.png" alt="Home"/>
                         </Link>
-                        <ShoppingCart cartItems={cartItems} removeItem={removeItem} setCartItems={setCartItems} />
+                        <ShoppingCart cartItems={cartItems} removeItem={removeItem} setCartItems={setCartItems}/>
                         <div id="products" className="products-container">
                             <DisplayProducts addItem={addItem}></DisplayProducts>
                             {/* Products will be dynamically inserted here by displayProducts */}
