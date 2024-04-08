@@ -89,9 +89,12 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
     // Submit form
     const [buttonText, setButtonText] = useState('Proceed to Checkout');
     const [isFormReadyForSubmit, setIsFormReadyForSubmit] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
+
 
     const handleCheckoutButtonClick = () => {
-        // First click: Check for form errors
+        // First click: Check for form errors and terms acceptance
         if (buttonText === 'Proceed to Checkout') {
             if (formErrors.length === 0) {
                 setButtonText('Place Order');
@@ -102,11 +105,20 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
         }
         // Second click: Submit the form
         else if (buttonText === 'Place Order' && isFormReadyForSubmit) {
+            setIsLoading(true); // Set loading state to true during submission
             // Here we should gather the form data and submit it
             submitFormData();
         }
     };
-
+/*
+    const handleMobilePayNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setMobilePayNumber(value);
+        const isValid = !value || (value.length === 8 && !isNaN(Number(value))); // Validate as 8 digits
+        setMobilePayNumberValidation(isValid);
+        updateFormErrors("Invalid MobilePay number", !isValid);
+    };
+*/
     const submitFormData = () => {
         // Prepare cart items data
         const cartItemsData = groupedCartItems.map(item => ({
@@ -562,9 +574,14 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
                             placeholder="Order Comment"
                         />
                         {/* Implement the "Proceed to Checkout" button and its logic here */}
+
+                        // Display the nudge message if total price is less than 3000
                     </div>
 
-                    <button className="checkout-button" onClick={handleCheckoutButtonClick}>{buttonText}</button>
+                    <button className="checkout-button" onClick={handleCheckoutButtonClick} disabled={!acceptTerms}>
+                        {buttonText}
+                    </button>
+
 
                 </div>
                 {/* Display the nudge message if total price is less than 3000*/}
