@@ -60,6 +60,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
     const [emailValidation, setEmailValidation] = useState(true); // 
     const [vatValidation, setVatValidation] = useState(true); // 
     const [zipValidation, setZipValidation] = useState(true); //
+    const [mobilePayNumberValidation, setMobilePayNumberValidation] = useState(true); // New state for MobilePay number validation
 
     // Form errors
     const [formErrors, setFormErrors] = useState<string[]>([]);
@@ -94,7 +95,13 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
 
 
     const handleCheckoutButtonClick = () => {
-        // First click: Check for form errors and terms acceptance
+        // Check if terms are accepted
+        if (!acceptTerms) {
+            alert('Please accept the terms and conditions.');
+            return; // Stop further execution
+        }
+    
+        // First click: Check for form errors
         if (buttonText === 'Proceed to Checkout') {
             if (formErrors.length === 0) {
                 setButtonText('Place Order');
@@ -107,7 +114,19 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
         else if (buttonText === 'Place Order' && isFormReadyForSubmit) {
             setIsLoading(true); // Set loading state to true during submission
             // Here we should gather the form data and submit it
-            submitFormData();
+            new Promise((resolve, reject) => {
+                submitFormData(resolve, reject);
+            })
+            .then(() => {
+                setIsLoading(false); // Reset loading state
+                setButtonText('Proceed to Checkout'); // Reset button text
+                alert('Order placed successfully!');
+            })
+            .catch((error) => {
+                setIsLoading(false); // Reset loading state
+                setError('An error occurred while submitting your order.'); // Set error message
+                console.error('Error:', error);
+            });
         }
     };
 /*
@@ -119,8 +138,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
         updateFormErrors("Invalid MobilePay number", !isValid);
     };
 */
-    const submitFormData = () => {
-        // Prepare cart items data
+const submitFormData = (resolve: Function, reject: Function) => {        // Prepare cart items data
         const cartItemsData = groupedCartItems.map(item => ({
             id: item.id,
             name: item.name,
@@ -235,6 +253,16 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
         setPhoneValidation(isValid);
         updateFormErrors("Invalid phone number", !isValid);
     };
+
+    const handleMobilePayNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setMobilePayNumber(value);
+        
+        const isValid = !value || validatePhoneNumber(value);
+        setMobilePayNumberValidation(isValid);
+        updateFormErrors("Invalid MobilePay phone number", !isValid);
+    };
+    
 
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -542,8 +570,9 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
                             <input
                                 type="text"
                                 value={mobilePayNumber}
-                                onChange={(e) => setMobilePayNumber(e.target.value)}
+                                onChange={handleMobilePayNumberChange}
                                 placeholder="MobilePay Number"
+                                style={{borderColor: mobilePayNumberValidation ? '#00ff00' : 'red'}}
                             />
                         )}
                         <div className="checkbox-container">
@@ -575,15 +604,15 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
                         />
                         {/* Implement the "Proceed to Checkout" button and its logic here */}
 
-                        // Display the nudge message if total price is less than 3000
-                    </div>
+                        {/* Display the nudge message if total price is less than 3000 */}
+                        </div>
 
-                    <button className="checkout-button" onClick={handleCheckoutButtonClick} disabled={!acceptTerms}>
-                        {buttonText}
-                    </button>
+<button className="checkout-button" onClick={handleCheckoutButtonClick} disabled={!acceptTerms || isLoading}>
+    {isLoading ? 'Loading...' : buttonText}
+</button>
+{error && <div style={{ color: 'red' }}>{error}</div>}
 
-
-                </div>
+</div>
                 {/* Display the nudge message if total price is less than 3000*/}
                 {(calculateTotalPrice() <= 3000 && calculateTotalQuantity() > 0) && (
                     <div className="increase-quantity-nudge">
