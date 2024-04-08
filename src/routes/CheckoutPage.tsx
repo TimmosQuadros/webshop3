@@ -138,6 +138,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
         updateFormErrors("Invalid MobilePay number", !isValid);
     };
 */
+// eslint-disable-next-line @typescript-eslint/ban-types
 const submitFormData = (resolve: Function, reject: Function) => {        // Prepare cart items data
         const cartItemsData = groupedCartItems.map(item => ({
             id: item.id,
@@ -195,10 +196,12 @@ const submitFormData = (resolve: Function, reject: Function) => {        // Prep
                 alert('Order placed successfully!');
                 // Here, we might want to reset the form or redirect the user
                 setButtonText('Proceed to Checkout');
+                resolve(data); // This line uses the resolve function
             })
             .catch((error) => {
                 console.error('Error:', error);
                 alert('An error occurred while submitting your order.');
+                reject(error); // This line uses the reject function
             });
     };
 
