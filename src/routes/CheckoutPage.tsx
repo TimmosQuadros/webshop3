@@ -30,30 +30,30 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
     const {companyVATNumber, setCompanyVATNumber} = useAddressForm();
 
     // Inside CheckoutPage component
-    const [phoneValidation, setPhoneValidation] = useAddressForm(true); // true means valid
-    const [emailValidation, setEmailValidation] = useAddressForm(true); // 
-    const [vatValidation, setVatValidation] = useAddressForm(true); // 
-    const [zipValidation, setZipValidation] = useAddressForm(true); //
+    const [phoneValidation, setPhoneValidation] = useState(true); // true means valid
+    const [emailValidation, setEmailValidation] = useState(true); // 
+    const [vatValidation, setVatValidation] = useState(true); // 
+    const [zipValidation, setZipValidation] = useState(true); //
 
     // Billing address
-    const [isBillingSameAsDelivery, setIsBillingSameAsDelivery] = useAddressForm(true);
-    const [billingZipCode, setBillingZipCode] = useAddressForm('');
-    const [billingCity, setBillingCity] = useAddressForm('');
-    const [billingCountry, setBillingCountry] = useAddressForm('Denmark'); 
-    const [billingName, setBillingName] = useAddressForm('');
-    const [billingPhone, setBillingPhone] = useAddressForm('');
-    const [billingEmail, setBillingEmail] = useAddressForm('');useAddressForm
-    const [billingAddressLine1, setBillingAddressLine1] = useAddressForm('');
-    const [billingAddressLine2, setBillingAddressLine2] = useAddressForm('');
-    const [billingPhoneValidation, setBillingPhoneValidation] = useAddressForm(true);
-    const [billingEmailValidation, setBillingEmailValidation] = useAddressForm(true);
-    const [billingZipValidation, setBillingZipValidation] = useAddressForm(true);
+    const [isBillingSameAsDelivery, setIsBillingSameAsDelivery] = useState(true);
+    const [billingZipCode, setBillingZipCode] = useState('');
+    const [billingCity, setBillingCity] = useState('');
+    const [billingCountry, setBillingCountry] = useState('Denmark'); 
+    const [billingName, setBillingName] = useState('');
+    const [billingPhone, setBillingPhone] = useState('');
+    const [billingEmail, setBillingEmail] = useState('');useAddressForm
+    const [billingAddressLine1, setBillingAddressLine1] = useState('');
+    const [billingAddressLine2, setBillingAddressLine2] = useState('');
+    const [billingPhoneValidation, setBillingPhoneValidation] = useState(true);
+    const [billingEmailValidation, setBillingEmailValidation] = useState(true);
+    const [billingZipValidation, setBillingZipValidation] = useState(true);
 
     // Form errors
-    const [formErrors, setFormErrors] = useAddressForm<string[]>([]);
+    const [formErrors, setFormErrors] = useState<string[]>([]);
 
     // GroupedCartItems
-    const [groupedCartItems, setGroupedCartItems] = useAddressForm<GroupedCartItem[]>([]);
+    const [groupedCartItems, setGroupedCartItems] = useState<GroupedCartItem[]>([]);
 
     // Payment
     const [paymentMethod, setPaymentMethod] = useState('');
