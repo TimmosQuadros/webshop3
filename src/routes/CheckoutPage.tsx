@@ -80,27 +80,46 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
     // Submit form
     const [buttonText, setButtonText] = useState('Proceed to Checkout');
     const [isFormReadyForSubmit, setIsFormReadyForSubmit] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
+
 
     const handleCheckoutButtonClick = () => {
-        // First click: Check for form errors and terms acceptance
+        // Check if terms are accepted
+        if (!acceptTerms) {
+            alert('Please accept the terms and conditions.');
+            return; // Stop further execution
+        }
+    
+        // First click: Check for form errors
         if (buttonText === 'Proceed to Checkout') {
-            if (formErrors.length === 0 && acceptTerms) {
+            if (formErrors.length === 0) {
                 setButtonText('Place Order');
-                setIsFormReadyForSubmit(true);
+                setIsFormReadyForSubmit(true); // Allow the form to be submitted on the next click
             } else {
-                if (!acceptTerms) {
-                    alert('Please accept the terms and conditions.');
-                } else {
-                    alert('Please correct the form errors before proceeding.');
-                }
+                alert('Please correct the form errors before proceeding.');
             }
         }
         // Second click: Submit the form
         else if (buttonText === 'Place Order' && isFormReadyForSubmit) {
+            setIsLoading(true); // Set loading state to true during submission
             // Here we should gather the form data and submit it
-            submitFormData();
+            new Promise((resolve, reject) => {
+                submitFormData(resolve, reject);
+            })
+            .then(() => {
+                setIsLoading(false); // Reset loading state
+                setButtonText('Proceed to Checkout'); // Reset button text
+                alert('Order placed successfully!');
+            })
+            .catch((error) => {
+                setIsLoading(false); // Reset loading state
+                setError('An error occurred while submitting your order.'); // Set error message
+                console.error('Error:', error);
+            });
         }
     };
+    
 /*
     const handleMobilePayNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -110,7 +129,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
         updateFormErrors("Invalid MobilePay number", !isValid);
     };
 */
-    const submitFormData = () => {
+    const submitFormData = (resolve: Function, reject: Function) => {
         // Prepare cart items data
         const cartItemsData = groupedCartItems.map(item => ({
             id: item.id,
@@ -577,12 +596,14 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
                             placeholder="Order Comment"
                         />
                         {/* Implement the "Proceed to Checkout" button and its logic here */}
+
+                        // Display the nudge message if total price is less than 3000
                     </div>
 
-                    <button className="checkout-button" onClick={handleCheckoutButtonClick} disabled={!acceptTerms}>
-                        {buttonText}
+                    <button className="checkout-button" onClick={handleCheckoutButtonClick} disabled={!acceptTerms || isLoading}>
+                        {isLoading ? 'Loading...' : buttonText}
                     </button>
-
+                    {error && <div style={{ color: 'red' }}>{error}</div>}
 
                 </div>
                 {/* Display the nudge message if total price is less than 3000*/}
