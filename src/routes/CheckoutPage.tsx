@@ -15,7 +15,7 @@ interface CheckoutPageProps {
 
 
 const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCartItems}) => {
-    const giftWrapPrice = 5; // Adjust as needed
+    const giftWrapPrice = 5;
     // To Add state for the form fields
     const [country, setCountry] = useState('Denmark'); // Limited to Denmark for now
     const [zipCode, setZipCode] = useState('');
@@ -61,6 +61,10 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
         number: '',
     });
     const [mobilePayNumber, setMobilePayNumber] = useState('');
+    const [mobilePayNumberValidation, setMobilePayNumberValidation] = useState(true); // New state for MobilePay number validation
+
+
+
     const [acceptTerms, setAcceptTerms] = useState(false);
     const [acceptMarketing, setAcceptMarketing] = useState(false);
     const [orderComment, setOrderComment] = useState('');
@@ -82,7 +86,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
         if (buttonText === 'Proceed to Checkout') {
             if (formErrors.length === 0 && acceptTerms) {
                 setButtonText('Place Order');
-                setIsFormReadyForSubmit(true); // Allow the form to be submitted on the next click
+                setIsFormReadyForSubmit(true);
             } else {
                 if (!acceptTerms) {
                     alert('Please accept the terms and conditions.');
@@ -97,7 +101,15 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
             submitFormData();
         }
     };
-
+/*
+    const handleMobilePayNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setMobilePayNumber(value);
+        const isValid = !value || (value.length === 8 && !isNaN(Number(value))); // Validate as 8 digits
+        setMobilePayNumberValidation(isValid);
+        updateFormErrors("Invalid MobilePay number", !isValid);
+    };
+*/
     const submitFormData = () => {
         // Prepare cart items data
         const cartItemsData = groupedCartItems.map(item => ({
@@ -163,6 +175,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
             });
     };
 
+
     /*const groupedCartItems = cartItems.reduce((acc: GroupedCartItem[], item: CartItem) => {
         const existingItem = acc.find(i => i.id === item.id);
         if (existingItem) {
@@ -209,11 +222,21 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
     const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setPhone(value);
-        // Treat the field as valid if it's empty or if it passes validation
+
         const isValid = !value || validatePhoneNumber(value);
         setPhoneValidation(isValid);
         updateFormErrors("Invalid phone number", !isValid);
     };
+
+    const handleMobilePayNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setMobilePayNumber(value);
+        
+        const isValid = !value || validatePhoneNumber(value);
+        setMobilePayNumberValidation(isValid);
+        updateFormErrors("Invalid MobilePay phone number", !isValid);
+    };
+    
 
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -521,8 +544,9 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
                             <input
                                 type="text"
                                 value={mobilePayNumber}
-                                onChange={(e) => setMobilePayNumber(e.target.value)}
+                                onChange={handleMobilePayNumberChange}
                                 placeholder="MobilePay Number"
+                                style={{borderColor: mobilePayNumberValidation ? '#00ff00' : 'red'}}
                             />
                         )}
                         <div className="checkbox-container">
