@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 //import { useLocation } from 'react-router-dom';
 import {CartItem} from "../components/shoppingcart.tsx";
 import { validateEmail, validatePhoneNumber, fetchCityNameFromZip, validateVATNumber } from '../utils/utils.tsx';
-
+import { useAddressForm } from '../components/addressFormContext.tsx';
 
 type GroupedCartItem = CartItem & { quantity: number, accumulatedPrice: number };
 // CheckoutPage component
@@ -15,44 +15,45 @@ interface CheckoutPageProps {
 
 
 const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCartItems}) => {
-    const giftWrapPrice = 5;
+    const giftWrapPrice = 5; // Adjust as needed
+
     // To Add state for the form fields
-    const [country, setCountry] = useState('Denmark'); // Limited to Denmark for now
-    const [zipCode, setZipCode] = useState('');
-    const [city, setCity] = useState('');
-    const [addressLine1, setAddressLine1] = useState('');
-    const [addressLine2, setAddressLine2] = useState('');
-    const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
-    const [email, setEmail] = useState('');
-    const [companyName, setCompanyName] = useState('');
-    const [companyVATNumber, setCompanyVATNumber] = useState('');
+    const { country, setCountry } = useAddressForm();    
+    const {zipCode, setZipCode} = useAddressForm();
+    const {city, setCity} = useAddressForm();
+    const {addressLine1, setAddressLine1} = useAddressForm();
+    const {addressLine2, setAddressLine2} = useAddressForm();
+    const {name, setName} = useAddressForm();
+    const {phone, setPhone} = useAddressForm();
+    const {email, setEmail} = useAddressForm();
+    const {companyName, setCompanyName} = useAddressForm();
+    const {companyVATNumber, setCompanyVATNumber} = useAddressForm();
 
     // Inside CheckoutPage component
-    const [phoneValidation, setPhoneValidation] = useState(true); // true means valid
-    const [emailValidation, setEmailValidation] = useState(true); // 
-    const [vatValidation, setVatValidation] = useState(true); // 
-    const [zipValidation, setZipValidation] = useState(true); //
+    const [phoneValidation, setPhoneValidation] = useAddressForm(true); // true means valid
+    const [emailValidation, setEmailValidation] = useAddressForm(true); // 
+    const [vatValidation, setVatValidation] = useAddressForm(true); // 
+    const [zipValidation, setZipValidation] = useAddressForm(true); //
 
     // Billing address
-    const [isBillingSameAsDelivery, setIsBillingSameAsDelivery] = useState(true);
-    const [billingZipCode, setBillingZipCode] = useState('');
-    const [billingCity, setBillingCity] = useState('');
-    const [billingCountry, setBillingCountry] = useState('Denmark'); 
-    const [billingName, setBillingName] = useState('');
-    const [billingPhone, setBillingPhone] = useState('');
-    const [billingEmail, setBillingEmail] = useState('');
-    const [billingAddressLine1, setBillingAddressLine1] = useState('');
-    const [billingAddressLine2, setBillingAddressLine2] = useState('');
-    const [billingPhoneValidation, setBillingPhoneValidation] = useState(true);
-    const [billingEmailValidation, setBillingEmailValidation] = useState(true);
-    const [billingZipValidation, setBillingZipValidation] = useState(true);
+    const [isBillingSameAsDelivery, setIsBillingSameAsDelivery] = useAddressForm(true);
+    const [billingZipCode, setBillingZipCode] = useAddressForm('');
+    const [billingCity, setBillingCity] = useAddressForm('');
+    const [billingCountry, setBillingCountry] = useAddressForm('Denmark'); 
+    const [billingName, setBillingName] = useAddressForm('');
+    const [billingPhone, setBillingPhone] = useAddressForm('');
+    const [billingEmail, setBillingEmail] = useAddressForm('');useAddressForm
+    const [billingAddressLine1, setBillingAddressLine1] = useAddressForm('');
+    const [billingAddressLine2, setBillingAddressLine2] = useAddressForm('');
+    const [billingPhoneValidation, setBillingPhoneValidation] = useAddressForm(true);
+    const [billingEmailValidation, setBillingEmailValidation] = useAddressForm(true);
+    const [billingZipValidation, setBillingZipValidation] = useAddressForm(true);
 
     // Form errors
-    const [formErrors, setFormErrors] = useState<string[]>([]);
+    const [formErrors, setFormErrors] = useAddressForm<string[]>([]);
 
     // GroupedCartItems
-    const [groupedCartItems, setGroupedCartItems] = useState<GroupedCartItem[]>([]);
+    const [groupedCartItems, setGroupedCartItems] = useAddressForm<GroupedCartItem[]>([]);
 
     // Payment
     const [paymentMethod, setPaymentMethod] = useState('');
@@ -61,10 +62,6 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
         number: '',
     });
     const [mobilePayNumber, setMobilePayNumber] = useState('');
-    const [mobilePayNumberValidation, setMobilePayNumberValidation] = useState(true); // New state for MobilePay number validation
-
-
-
     const [acceptTerms, setAcceptTerms] = useState(false);
     const [acceptMarketing, setAcceptMarketing] = useState(false);
     const [orderComment, setOrderComment] = useState('');
@@ -82,17 +79,13 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
     const [isFormReadyForSubmit, setIsFormReadyForSubmit] = useState(false);
 
     const handleCheckoutButtonClick = () => {
-        // First click: Check for form errors and terms acceptance
+        // First click: Check for form errors
         if (buttonText === 'Proceed to Checkout') {
-            if (formErrors.length === 0 && acceptTerms) {
+            if (formErrors.length === 0) {
                 setButtonText('Place Order');
-                setIsFormReadyForSubmit(true);
+                setIsFormReadyForSubmit(true); // Allow the form to be submitted on the next click
             } else {
-                if (!acceptTerms) {
-                    alert('Please accept the terms and conditions.');
-                } else {
-                    alert('Please correct the form errors before proceeding.');
-                }
+                alert('Please correct the form errors before proceeding.');
             }
         }
         // Second click: Submit the form
@@ -101,15 +94,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
             submitFormData();
         }
     };
-/*
-    const handleMobilePayNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        setMobilePayNumber(value);
-        const isValid = !value || (value.length === 8 && !isNaN(Number(value))); // Validate as 8 digits
-        setMobilePayNumberValidation(isValid);
-        updateFormErrors("Invalid MobilePay number", !isValid);
-    };
-*/
+
     const submitFormData = () => {
         // Prepare cart items data
         const cartItemsData = groupedCartItems.map(item => ({
@@ -175,7 +160,6 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
             });
     };
 
-
     /*const groupedCartItems = cartItems.reduce((acc: GroupedCartItem[], item: CartItem) => {
         const existingItem = acc.find(i => i.id === item.id);
         if (existingItem) {
@@ -222,21 +206,11 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
     const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setPhone(value);
-
+        // Treat the field as valid if it's empty or if it passes validation
         const isValid = !value || validatePhoneNumber(value);
         setPhoneValidation(isValid);
         updateFormErrors("Invalid phone number", !isValid);
     };
-
-    const handleMobilePayNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        setMobilePayNumber(value);
-        
-        const isValid = !value || validatePhoneNumber(value);
-        setMobilePayNumberValidation(isValid);
-        updateFormErrors("Invalid MobilePay phone number", !isValid);
-    };
-    
 
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -544,9 +518,8 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
                             <input
                                 type="text"
                                 value={mobilePayNumber}
-                                onChange={handleMobilePayNumberChange}
+                                onChange={(e) => setMobilePayNumber(e.target.value)}
                                 placeholder="MobilePay Number"
-                                style={{borderColor: mobilePayNumberValidation ? '#00ff00' : 'red'}}
                             />
                         )}
                         <div className="checkbox-container">
@@ -579,10 +552,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
                         {/* Implement the "Proceed to Checkout" button and its logic here */}
                     </div>
 
-                    <button className="checkout-button" onClick={handleCheckoutButtonClick} disabled={!acceptTerms}>
-                        {buttonText}
-                    </button>
-
+                    <button className="checkout-button" onClick={handleCheckoutButtonClick}>{buttonText}</button>
 
                 </div>
                 {/* Display the nudge message if total price is less than 3000*/}
