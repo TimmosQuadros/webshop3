@@ -1,8 +1,8 @@
 import {render, screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it } from "vitest";
 import App from "../App.tsx";
 import CheckoutPage from "../routes/CheckoutPage.tsx";
+import {AddressFormProvider} from "../components/addressFormContext.tsx";
 
 describe(App.name, () => {
 
@@ -15,8 +15,9 @@ describe(App.name, () => {
 
     beforeEach(() => {
         // This will run before each test in this describe block
-        render(<CheckoutPage {...commonProps} />);
+        render(<AddressFormProvider><CheckoutPage {...commonProps} /></AddressFormProvider>);
     });
+
 
     it('automatically fills in the city "Fredensborg" when "3480" is entered into the ZIP code field', async () => {
         //render(<CheckoutPage cartItems={[]} removeItem={() => {}} setCartItems={() => {}} />);
