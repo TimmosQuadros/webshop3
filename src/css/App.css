@@ -108,6 +108,7 @@
   width: 600px;
 }
 
+@media (prefers-reduced-motion: no-preference){
 .shopping-cart:hover .cart-summary,
 .cart-summary:hover {
   display: block;
@@ -571,22 +572,25 @@ nav ul li a:hover {
     margin: 20px 0; /* Increase spacing for touch targets */
   }
 
+  @media (max-width: 600px){
   .cart-summary {
-    /* Make the cart summary take the full width minus some margin on the right */
-    width: calc(100%); /* Adjust this value so the cart-summary doesn't overflow the screen width */
-    right: 100%; /* Make sure this is the same as the margin of the shopping cart icon */
-    top: 60px; /* Adjust if necessary to align below the shopping cart icon */
+    width: calc(100% - 40px); /* Adjust the width to fit the screen */
+    right: 20px; /* Adjusted the right position */
+    top: 80px; /* Adjust the top position to give space for the hamburger menu */
     box-sizing: border-box; /* Include padding and border in the width */
     z-index: 1031; /* Above the shopping cart icon */
     display: none; /* Hide by default, will be shown on hover */
+    position: absolute; /* Change position to absolute for better control */
   }
+}
 
   /* This ensures that the cart summary appears on hover */
+  @media (max-width: 600px){
   .shopping-cart:hover .cart-summary,
   .cart-summary:hover {
     display: block; /* Show the cart summary */
-    position: absolute;
   }
+}
 
   .shopping-cart {
     z-index: 1030; /* Ensure the z-index is lower than .cart-summary for hover to work */
@@ -610,6 +614,4 @@ nav ul li a:hover {
   }
 }
 
-
-
-
+}

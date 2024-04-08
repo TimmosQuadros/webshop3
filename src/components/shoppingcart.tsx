@@ -74,9 +74,9 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ cartItems, removeItem }) =>
                                 <span className="product-name">{item.name}</span>
                                 <span className="product-price">{item.currency}{item.accumulatedPrice.toFixed(2)}</span>
                                 <span className="product-quantity">{item.quantity} pc.</span>
-                                {/*item.quantity <= 5 && (
+                                {item.quantity <= 5 && (
                                     <div className="nudge">Buy more than 5 to get a 5% discount!</div>
-                                )*/}
+                                )}
                                 <button className="delete-item" onClick={() => {removeItem(item.id)
                                 }}>X
                                 </button>

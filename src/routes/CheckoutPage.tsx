@@ -78,13 +78,17 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
     const [isFormReadyForSubmit, setIsFormReadyForSubmit] = useState(false);
 
     const handleCheckoutButtonClick = () => {
-        // First click: Check for form errors
+        // First click: Check for form errors and terms acceptance
         if (buttonText === 'Proceed to Checkout') {
-            if (formErrors.length === 0) {
+            if (formErrors.length === 0 && acceptTerms) {
                 setButtonText('Place Order');
                 setIsFormReadyForSubmit(true); // Allow the form to be submitted on the next click
             } else {
-                alert('Please correct the form errors before proceeding.');
+                if (!acceptTerms) {
+                    alert('Please accept the terms and conditions.');
+                } else {
+                    alert('Please correct the form errors before proceeding.');
+                }
             }
         }
         // Second click: Submit the form
@@ -551,7 +555,10 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
                         {/* Implement the "Proceed to Checkout" button and its logic here */}
                     </div>
 
-                    <button className="checkout-button" onClick={handleCheckoutButtonClick}>{buttonText}</button>
+                    <button className="checkout-button" onClick={handleCheckoutButtonClick} disabled={!acceptTerms}>
+                        {buttonText}
+                    </button>
+
 
                 </div>
                 {/* Display the nudge message if total price is less than 3000*/}
