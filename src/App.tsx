@@ -3,6 +3,7 @@ import './css/App.css'
 import { ShoppingCart, CartItem } from './components/shoppingcart.tsx';
 import {DisplayProducts} from "./components/products.tsx";
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { AddressFormProvider } from './components/addressFormContext.tsx';
 
 //import Home from './Home';
 import About from './routes/About.tsx';
@@ -56,6 +57,7 @@ function App() {
 
 
     return (
+        <AddressFormProvider>
         <Router>
             <nav className="nav">
                 <div className="hamburger-menu" onClick={toggleMenu}>
@@ -98,7 +100,9 @@ function App() {
                     </>
                 }/>
             </Routes>
+
         </Router>
+        </AddressFormProvider>
     )
 }
 
