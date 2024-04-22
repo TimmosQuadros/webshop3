@@ -38,7 +38,7 @@ export const DisplayProducts = (shoppingCart: { addItem: (arg0: CartItem) => voi
                         <h4 className="product-name">{product.name}</h4>
                         <div className="product-price">{product.currency}{product.price.toFixed(2)}</div>
                     </div>
-                    <button onClick={() => handleAddToBasket(product.id)} className="add-to-basket">
+                    <button onClick={() => handleAddToBasket(product.id)} className="ATB-button">
                         Add to Basket
                     </button>
                 </div>
