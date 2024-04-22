@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 //import { useLocation } from 'react-router-dom';
 import {CartItem} from "../components/shoppingcart.tsx";
 import { validateEmail, validatePhoneNumber, fetchCityNameFromZip, validateVATNumber } from '../utils/utils.tsx';
+import { useAddressForm } from '../components/addressFormContext.tsx';
 
 
 type GroupedCartItem = CartItem & { quantity: number, accumulatedPrice: number };
@@ -16,17 +17,30 @@ interface CheckoutPageProps {
 
 const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCartItems}) => {
     const giftWrapPrice = 5;
-    // To Add state for the form fields
-    const [country, setCountry] = useState('Denmark'); // Limited to Denmark for now
-    const [zipCode, setZipCode] = useState('');
-    const [city, setCity] = useState('');
-    const [addressLine1, setAddressLine1] = useState('');
-    const [addressLine2, setAddressLine2] = useState('');
-    const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
-    const [email, setEmail] = useState('');
-    const [companyName, setCompanyName] = useState('');
-    const [companyVATNumber, setCompanyVATNumber] = useState('');
+
+    const {
+        country,
+        setCountry,
+        zipCode,
+        setZipCode,
+        city,
+        setCity,
+        addressLine1,
+        setAddressLine1,
+        addressLine2,
+        setAddressLine2,
+        name,
+        setName,
+        phone,
+        setPhone,
+        email,
+        setEmail,
+        companyName,
+        setCompanyName,
+        companyVATNumber,
+        setCompanyVATNumber,
+        // Include other state and setters as needed
+    } = useAddressForm();
 
     // Inside CheckoutPage component
     const [phoneValidation, setPhoneValidation] = useState(true); // true means valid
@@ -129,6 +143,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
         updateFormErrors("Invalid MobilePay number", !isValid);
     };
 */
+    // eslint-disable-next-line @typescript-eslint/ban-types
     const submitFormData = (resolve: Function, reject: Function) => {
         // Prepare cart items data
         const cartItemsData = groupedCartItems.map(item => ({
@@ -187,10 +202,12 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
                 alert('Order placed successfully!');
                 // Here, we might want to reset the form or redirect the user
                 setButtonText('Proceed to Checkout');
+                resolve(data);
             })
             .catch((error) => {
                 console.error('Error:', error);
                 alert('An error occurred while submitting your order.');
+                reject(error);
             });
     };
 
