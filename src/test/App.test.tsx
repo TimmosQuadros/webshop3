@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import App from "../App.tsx";
 import CheckoutPage from "../routes/CheckoutPage.tsx";
 import {AddressFormProvider} from "../components/addressFormContext.tsx";
+import { MemoryRouter } from 'react-router-dom'; // Import MemoryRouter for testing
 
 describe(App.name, () => {
 
@@ -15,7 +16,13 @@ describe(App.name, () => {
 
     beforeEach(() => {
         // This will run before each test in this describe block
-        render(<AddressFormProvider><CheckoutPage {...commonProps} /></AddressFormProvider>);
+        render(
+            <MemoryRouter>
+                <AddressFormProvider>
+                    <CheckoutPage {...commonProps} />
+                </AddressFormProvider>
+            </MemoryRouter>
+        );
     });
 
 
