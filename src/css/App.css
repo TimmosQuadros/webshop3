@@ -399,7 +399,7 @@ nav ul li a:hover {
 .product-price,
 .product-quantity-controls,
 .product-quantity {
-  margin-right: 5px; /* Add more space to the right of each item */
+  margin-right: 5px; 
 }
 
 .quantity-input {
@@ -421,11 +421,12 @@ nav ul li a:hover {
 .payment-section input[type="email"],
 .payment-section textarea {
   width: 100%;
+  resize: none;
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-sizing: border-box; /* Makes sure padding doesn't add to the width */
+  box-sizing: border-box;
 }
 
 .payment-section input[type="checkbox"] {
