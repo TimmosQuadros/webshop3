@@ -9,6 +9,7 @@ import { AddressFormProvider } from './components/addressFormContext.tsx';
 import About from './routes/About.tsx';
 import Contact from './routes/Contact.tsx';
 import CheckoutPage from "./routes/CheckoutPage.tsx";
+import OrderCompleted from "./routes/OrderCompleted.tsx";
 
 function App() {
 
@@ -99,6 +100,7 @@ function App() {
                         </div>
                     </>
                 }/>
+                <Route path="/OrderComplete" element={<OrderCompleted/>}></Route>
             </Routes>
 
         </Router>

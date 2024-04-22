@@ -3,6 +3,8 @@ import React, {useEffect, useState} from 'react';
 import {CartItem} from "../components/shoppingcart.tsx";
 import { validateEmail, validatePhoneNumber, fetchCityNameFromZip, validateVATNumber } from '../utils/utils.tsx';
 import { useAddressForm } from '../components/addressFormContext.tsx';
+import {useNavigate} from "react-router-dom";
+import ApiError from "../error/ApiError.tsx";
 
 
 type GroupedCartItem = CartItem & { quantity: number, accumulatedPrice: number };
@@ -97,6 +99,8 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
 
+    const navigate = useNavigate();
+
 
     const handleCheckoutButtonClick = () => {
         // Check if terms are accepted
@@ -124,7 +128,8 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
             .then(() => {
                 setIsLoading(false); // Reset loading state
                 setButtonText('Proceed to Checkout'); // Reset button text
-                alert('Order placed successfully!');
+                //alert('Order placed successfully!');
+                navigate('/OrderComplete');
             })
             .catch((error) => {
                 setIsLoading(false); // Reset loading state
@@ -195,7 +200,14 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
             },
             body: JSON.stringify(formData),
         })
-            .then(response => response.json())
+            .then(async response => {
+                const data = await response.json();
+                if (!response.ok) {
+                    // Throw an ApiError if the HTTP response status code indicates an error
+                    throw new ApiError(response.status, data);
+                }
+                return data;
+            })
             .then(data => {
                 console.log('Success:', data);
                 alert('Order placed successfully!');
@@ -205,7 +217,13 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
             })
             .catch((error) => {
                 console.error('Error:', error);
-                alert('An error occurred while submitting your order.');
+                if (error instanceof ApiError) {
+                    // Custom handling for ApiError with specific messages
+                    alert(`An error occurred while submitting your order: ${error.message}`);
+                } else {
+                    // Generic error handling for other types of errors
+                    alert('An error occurred while submitting your order. Please try again later.');
+                }
                 reject(error);
             });
     };
