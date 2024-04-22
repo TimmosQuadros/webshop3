@@ -143,7 +143,6 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
         updateFormErrors("Invalid MobilePay number", !isValid);
     };
 */
-    // eslint-disable-next-line @typescript-eslint/ban-types
     const submitFormData = (resolve: Function, reject: Function) => {
         // Prepare cart items data
         const cartItemsData = groupedCartItems.map(item => ({
