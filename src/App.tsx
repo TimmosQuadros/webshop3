@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 import './css/App.css'
 import { ShoppingCart, CartItem } from './components/shoppingcart.tsx';
 import {DisplayProducts} from "./components/products.tsx";
@@ -13,7 +13,14 @@ import OrderCompleted from "./routes/OrderCompleted.tsx";
 
 function App() {
 
-    const [cartItems, setCartItems] = useState<CartItem[]>([]);
+    //const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
+    const [cartItems, setCartItems] = useState(() => {
+        // Get initial cart items from local storage or set to empty array
+        const localData = localStorage.getItem('cartItems');
+        return localData ? JSON.parse(localData) : [];
+    });
+
 
     const addItem = (item: CartItem) => {
         setCartItems([...cartItems, item]);
@@ -24,6 +31,11 @@ function App() {
     }
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    useEffect(() => {
+        // Save cart items to local storage whenever they change
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    }, [cartItems]);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
