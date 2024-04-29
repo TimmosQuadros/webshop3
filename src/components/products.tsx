@@ -52,6 +52,7 @@ export const DisplayProducts: React.FC<Props> = ({ shoppingCart }) => {
         if (product) {
             shoppingCart.addItem({
                 ...product,
+                quantity: 1, // Set the added quantity to 1 regardless of the stock quantity
                 upsellProductId: product.upsellProductId || undefined
             });
         }

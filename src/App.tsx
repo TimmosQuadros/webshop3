@@ -22,9 +22,18 @@ function App() {
     });
 
 
-    const addItem = (item: CartItem) => {
-        setCartItems([...cartItems, item]);
-    }
+    const addItem = (newItem: CartItem) => {
+        setCartItems((prevItems: any[]) => {
+            const existingItemIndex = prevItems.findIndex(item => item.id === newItem.id);
+            if (existingItemIndex !== -1) {
+                // Item already exists, update the quantity
+                return prevItems.map((item, index) => index === existingItemIndex ? { ...item, quantity: item.quantity + 1 } : item);
+            } else {
+                // Item does not exist, add new item with quantity 1
+                return [...prevItems, { ...newItem, quantity: 1 }];
+            }
+        });
+    };
 
     const removeItem = (itemId: string) => {
         setCartItems(cartItems.filter((item: { id: string; }) => item.id !== itemId));

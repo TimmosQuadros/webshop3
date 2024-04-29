@@ -42,20 +42,21 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ cartItems, removeItem }) =>
     }, [] as GroupedCartItem[]);*/
 
     useEffect(() => {
-
-    const newGroupedCartItems = cartItems.reduce((acc: GroupedCartItem[], item: CartItem) => {
-        const existingItem = acc.find(i => i.id === item.id);
-        if (existingItem) {
-            const updatedGroupedItem = { ...existingItem, quantity: existingItem.quantity + item.quantity, accumulatedPrice: existingItem.accumulatedPrice + item.price * item.quantity };
-            const filteredItems = acc.filter(i => i.id !== item.id);
-            return [...filteredItems, updatedGroupedItem];
-        }
-        return [...acc, { ...item, quantityCart: item.quantity, accumulatedPrice: item.price * item.quantity }];
-    }, []);
-
-    setGroupedCartItems(newGroupedCartItems);
-
-}, [cartItems]);
+        const newGroupedCartItems = cartItems.reduce((acc: GroupedCartItem[], item: CartItem) => {
+            const existingItem = acc.find(i => i.id === item.id);
+            if (existingItem) {
+                const updatedGroupedItem = {
+                    ...existingItem, 
+                    quantity: existingItem.quantity + item.quantity, 
+                    accumulatedPrice: existingItem.accumulatedPrice + item.price * item.quantity
+                };
+                const filteredItems = acc.filter(i => i.id !== item.id);
+                return [...filteredItems, updatedGroupedItem];
+            }
+            return [...acc, { ...item, quantity: item.quantity, accumulatedPrice: item.price * item.quantity }];
+        }, []);
+        setGroupedCartItems(newGroupedCartItems);
+    }, [cartItems]);
 
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
     const totalCost = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
