@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchProducts } from '../utils/api';
 import { CartItem } from './shoppingcart.tsx';
+import React from 'react';
 
 interface Product {
     id: string;
@@ -15,9 +16,14 @@ interface Product {
     giftWrap: boolean;
 }
 
-export const DisplayProducts = ({ shoppingCart: { addItem } }: { shoppingCart: { addItem: (arg0: CartItem) => void; } }) => {
+interface Props {
+    shoppingCart: {
+        addItem: (item: CartItem) => void;
+    };
+}
+
+export const DisplayProducts: React.FC<Props> = ({ shoppingCart }) => {
     const [productsData, setProductsData] = useState<Product[]>([]);
-    // Define error state to accept both string and null
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
 
@@ -29,11 +35,11 @@ export const DisplayProducts = ({ shoppingCart: { addItem } }: { shoppingCart: {
                 setLoading(false);
             } catch (error) {
                 if (error instanceof Error) {
-                    console.log(error.message); // It's a good practice to log the error
-                    setError(error.message); // Set the actual error message to state
+                    console.log(error.message);
+                    setError(error.message);
                 } else {
                     console.log('An unknown error occurred');
-                    setError('An unknown error occurred'); // Set a generic error message
+                    setError('An unknown error occurred');
                 }
                 setLoading(false);
             }
@@ -44,13 +50,10 @@ export const DisplayProducts = ({ shoppingCart: { addItem } }: { shoppingCart: {
     const handleAddToBasket = (productId: string) => {
         const product = productsData.find(p => p.id === productId);
         if (product) {
-            if (product.upsellProductId === null) {
-                // Handle the scenario where upsellProductId is null if necessary
-            }
-            addItem({
+            shoppingCart.addItem({
                 ...product,
-                upsellProductId: product.upsellProductId || undefined // Handling null to undefined conversion
-            } as CartItem);
+                upsellProductId: product.upsellProductId || undefined
+            });
         }
     };
 

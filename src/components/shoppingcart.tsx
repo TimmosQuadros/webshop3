@@ -50,7 +50,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ cartItems, removeItem }) =>
             const filteredItems = acc.filter(i => i.id !== item.id);
             return [...filteredItems, updatedGroupedItem];
         }
-        return [...acc, { ...item, quantity: item.quantity, accumulatedPrice: item.price * item.quantity }];
+        return [...acc, { ...item, quantityCart: item.quantity, accumulatedPrice: item.price * item.quantity }];
     }, []);
 
     setGroupedCartItems(newGroupedCartItems);

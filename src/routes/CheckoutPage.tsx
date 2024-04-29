@@ -417,7 +417,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
                 const filteredItems = acc.filter(i => i.id !== item.id);
                 return [...filteredItems, updatedGroupedItem];
             }
-            return [...acc, { ...item, quantity: item.quantity, accumulatedPrice: item.price * item.quantity }];
+            return [...acc, { ...item, quantityCart: item.quantity, accumulatedPrice: item.price * item.quantity }];
         }, []);
 
         setGroupedCartItems(newGroupedCartItems);

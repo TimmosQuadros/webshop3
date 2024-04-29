@@ -91,8 +91,8 @@ function App() {
                         </Link>
                         <ShoppingCart cartItems={cartItems} removeItem={removeItem} setCartItems={setCartItems}/>
                         <div id="products" className="products-container">
-                        <DisplayProducts shoppingCart={{ addItem: addItem }} />
-                            {/* Products will be dynamically inserted here by displayProducts */}
+                        <ShoppingCart cartItems={cartItems} removeItem={removeItem} setCartItems={setCartItems}/>
+<DisplayProducts shoppingCart={{ addItem }} />                            {/* Products will be dynamically inserted here by displayProducts */}
                         </div>
                     </>
                 }/>
@@ -107,8 +107,8 @@ function App() {
                         </Link>
                         <ShoppingCart cartItems={cartItems} removeItem={removeItem} setCartItems={setCartItems}/>
                         <div id="products" className="products-container">
-                        <DisplayProducts shoppingCart={{ addItem: addItem }} />
-                            {/* Products will be dynamically inserted here by displayProducts */}
+                        <ShoppingCart cartItems={cartItems} removeItem={removeItem} setCartItems={setCartItems}/>
+<DisplayProducts shoppingCart={{ addItem }} />                            {/* Products will be dynamically inserted here by displayProducts */}
                         </div>
                     </>
                 }/>

@@ -212,8 +212,10 @@
 }
 
 .ATB-button {
+  display: flex;
+  align-items: center; /* Aligns items vertically center */
+  justify-content: center; /* Aligns items horizontally center */
   cursor: pointer;
-  position: relative;
   padding: 10px 24px;
   font-size: 18px;
   color: rgb(68, 188, 70);
