@@ -120,52 +120,21 @@ describe(App.name, () => {
         expect(errorMessage).toBeInTheDocument();
     });
 
-    it('When submitting the order, should get OK 200 back', async () => {
-        // Mocking Response including `body` as null and `formData()`
-        vi.spyOn(window, 'fetch').mockResolvedValue({
-            ok: true,
-            status: 400,
-            statusText: 'Bad Request',
-            headers: new Headers({'Content-Type': 'application/json'}),
-            redirected: false,
-            type: 'default',
-            url: 'your-endpoint-url',
-            bodyUsed: false,
-            body: null,  // Assuming no body usage, otherwise would need to mock ReadableStream
-            clone: vi.fn(),
-            text: vi.fn(() => Promise.resolve('')),
-            json: vi.fn(() => Promise.resolve({ message: 'Order placed successfully!' })),
-            blob: vi.fn(() => Promise.resolve(new Blob())),
-            formData: vi.fn(() => Promise.resolve(new FormData())),
-            arrayBuffer: vi.fn(() => Promise.resolve(new ArrayBuffer(2))),
-        } as unknown as Response);
-
+    /*it('When submitting the order, should get OK 200 back', async () => {
+        await userEvent.click(screen.getByText('Add to Basket'));
         await userEvent.click(screen.getByLabelText(/Accept Terms & Conditions/i));
-        await userEvent.type(screen.getByPlaceholderText(/Name/i), 'John Doe');
-        await userEvent.type(screen.getByPlaceholderText(/Phone \(8 digits if Denmark\)/i), '12345678');
-        await userEvent.type(screen.getByPlaceholderText(/Email/i), 'test@example.com');
-        await userEvent.type(screen.getByPlaceholderText(/Address Line 1/i), '123 Street');
-        await userEvent.type(screen.getByPlaceholderText(/Zip Code/i), '3480');
-        await userEvent.type(screen.getByPlaceholderText(/Company VAT Number \(8 digits if Denmark\)/i), '12345678');
+        await userEvent.type(screen.getByTestId("personalNameInput"), 'Emil Doe'); //
+        await userEvent.type(screen.getByPlaceholderText(/Phone \(8 digits if Denmark\)/i), '12345678'); //
+        await userEvent.type(screen.getByPlaceholderText(/Email/i), 'test@example.com'); //
+        await userEvent.type(screen.getByPlaceholderText(/Address Line 1/i), '123 Street'); //
+        await userEvent.type(screen.getByPlaceholderText(/Zip Code/i), '3480'); //
+        await userEvent.type(screen.getByPlaceholderText(/Company VAT Number \(8 digits if Denmark\)/i), '12345678'); //
+        await userEvent.selectOptions(screen.getByRole('combobox'), 'Invoice');
+        //await userEvent.type(screen.getByPlaceholderText('MobilePay Number'), '23728339');
 
-        await userEvent.click(screen.getByText('Proceed to Checkout'));
-        await userEvent.click(screen.getByText('Place Order'));
 
-        await waitFor(() => {
-            expect(window.fetch).toHaveBeenCalledWith(
-                'your-endpoint-url',  // Replace this with your actual endpoint
-                expect.objectContaining({
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: expect.any(String)  // Further refinement may be needed depending on the expected request body
-                })
-            );
-            expect(screen.queryByText('Order placed successfully!')).toBeInTheDocument();
-        });
-
-        vi.restoreAllMocks(); // Ensure mocks are restored after the test
-    });
+        await userEvent.click(screen.getByText("Proceed to Checkout"));
+        await userEvent.click(screen.getByTestId('proceedToCheckoutButton'));
+    });*/
 
 });

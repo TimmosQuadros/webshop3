@@ -193,7 +193,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
         };
 
         // Perform the submission
-        fetch('https://eokey0hl88641a2.m.pipedream.net', {
+        fetch('http://172.232.129.131/api/orders', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -428,7 +428,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
     const addressForm = (
         <form className="address-form">
             <h2>Delivery Address</h2>
-            <input type="text" placeholder="Name" value={name} onChange={e => setName(e.target.value)}/>
+            <input data-testid="personalNameInput" type="text" placeholder="Name" value={name} onChange={e => setName(e.target.value)}/>
             <input
                 type="text"
                 placeholder="Phone (8 digits if Denmark)"
@@ -634,7 +634,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
                     
                     </div>
 
-                    <button className="checkout-button" onClick={handleCheckoutButtonClick} disabled={!acceptTerms || isLoading}>
+                    <button data-testid="proceedToCheckoutButton" className="checkout-button" onClick={handleCheckoutButtonClick} disabled={!acceptTerms || isLoading}>
                         {isLoading ? 'Loading...' : buttonText}
                     </button>
                     {error && <div style={{ color: 'red' }}>{error}</div>}
