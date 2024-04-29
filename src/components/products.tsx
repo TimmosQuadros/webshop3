@@ -67,7 +67,7 @@ export const DisplayProducts: React.FC<Props> = ({ shoppingCart }) => {
                 <div key={product.id} className="product">
                     <div className="product-content">
                         <div className="product-image">
-                            <img src={`https://172.232.129.131${product.imagePath}`} alt={product.name} />
+                            <img src={`https://webapp7.crabdance.com${product.imagePath}`} alt={product.name} />
                         </div>
                         <h4 className="product-name">{product.name}</h4>
                         <div className="product-price">{product.currency}{product.price.toFixed(2)}</div>
