@@ -102,6 +102,4 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ cartItems, removeItem }) =>
     );
 };
 
-//emil er sej
-
 export { ShoppingCart };
