@@ -210,7 +210,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
             })
             .then(data => {
                 console.log('Success:', data);
-                alert('Order placed successfully!');
+                // alert('Order placed successfully!');
                 // Here, we might want to reset the form or redirect the user
                 setButtonText('Proceed to Checkout');
                 resolve(data);
