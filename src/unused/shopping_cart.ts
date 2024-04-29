@@ -40,7 +40,8 @@ class ShoppingCart {
                 this.items.splice(itemIndex, 1); // Remove the item if quantity is 0 or less
             }
             this.updateCartUI(); // Update the UI to reflect the change
-        }
+            console.log("GODDAG TIMM");
+        } 
     }
 
     /*updateCartUI() {

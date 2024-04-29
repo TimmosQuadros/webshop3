@@ -82,11 +82,12 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ cartItems, removeItem }) =>
                                 </button>
                             </li>
                         ))}
-                        <li className="cart-total">Total: {cartItems[0].currency}{totalCost.toFixed(2)}</li>
-                        {/* Add checkout button */}
+                       {/* Add a check for empty `cartItems` before accessing the first element */}
+                       {cartItems.length > 0 && (
+                            <li className="cart-total">Total: {cartItems[0].currency}{totalCost.toFixed(2)}</li>
+                        )}
                         <li className="checkout-button-li">
-                            <button className="checkout-button" onClick={navigateToCheckout}>Checkout
-                            </button>
+                            <button className="checkout-button" onClick={navigateToCheckout}>Checkout</button>
                         </li>
                     </ul>
                 ) : (
