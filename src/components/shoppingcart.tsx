@@ -9,6 +9,10 @@ export type CartItem = {
     currency: string;
     quantity: number;
     giftWrap: boolean;
+    imagePath: string;
+    rebateQuantity?: number;
+    rebatePercent?: number;
+    upsellProductId?: string;
 };
 
 type GroupedCartItem = CartItem & { quantity: number, accumulatedPrice: number };
