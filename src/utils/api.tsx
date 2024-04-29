@@ -1,6 +1,6 @@
 // api.js
 export const fetchProducts = async () => {
-    const url = 'http://172.232.129.131/api/products'; // Update the URL based on your server setup
+    const url = 'https://172.232.129.131/api/products'; // Update the URL based on your server setup
     try {
         const response = await fetch(url);
         if (!response.ok) { // Check if the HTTP status code is in the range 200-299
