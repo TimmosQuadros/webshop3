@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { fetchProducts } from '../utils/api'; // Adjust the import path based on your project structure
+import { useEffect, useState } from 'react';
+import { fetchProducts } from '../utils/api';
 import { CartItem } from './shoppingcart.tsx';
 
 interface Product {
@@ -15,9 +15,10 @@ interface Product {
     giftWrap: boolean;
 }
 
-export const DisplayProducts = ( shoppingCart: {addItem: (arg0: CartItem) => void; }) => {
+export const DisplayProducts = ({ shoppingCart: { addItem } }: { shoppingCart: { addItem: (arg0: CartItem) => void; } }) => {
     const [productsData, setProductsData] = useState<Product[]>([]);
-    const [error, setError] = useState(null);
+    // Define error state to accept both string and null
+    const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -27,42 +28,49 @@ export const DisplayProducts = ( shoppingCart: {addItem: (arg0: CartItem) => voi
                 setProductsData(products);
                 setLoading(false);
             } catch (error) {
-                if (error instanceof Error) { // Type guard to check if it's an Error object
-                    console.log(error.message);
+                if (error instanceof Error) {
+                    console.log(error.message); // It's a good practice to log the error
+                    setError(error.message); // Set the actual error message to state
                 } else {
                     console.log('An unknown error occurred');
+                    setError('An unknown error occurred'); // Set a generic error message
                 }
                 setLoading(false);
             }
         };
         loadProducts();
-    }, []); // Empty dependency array means this effect runs only once after the initial render
+    }, []);
 
     const handleAddToBasket = (productId: string) => {
         const product = productsData.find(p => p.id === productId);
         if (product) {
-            shoppingCart.addItem(product);
+            if (product.upsellProductId === null) {
+                // Handle the scenario where upsellProductId is null if necessary
+            }
+            addItem({
+                ...product,
+                upsellProductId: product.upsellProductId || undefined // Handling null to undefined conversion
+            } as CartItem);
         }
     };
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
-    // Logic to generate product list based on the cart
     return (
         <div id="products" className="products-container">
             {productsData.map((product) => (
                 <div key={product.id} className="product">
-                    <div className="product-content"> {/* New wrapper */}
+                    <div className="product-content">
                         <div className="product-image">
-                        <img src={`http://172.232.129.131${product.imagePath}`} alt={product.name} />
+                            <img src={`http://172.232.129.131${product.imagePath}`} alt={product.name} />
                         </div>
                         <h4 className="product-name">{product.name}</h4>
                         <div className="product-price">{product.currency}{product.price.toFixed(2)}</div>
+                        <button onClick={() => handleAddToBasket(product.id)} className="ATB-button">
+                            Add to Basket
+                        </button>
                     </div>
-                    <button onClick={() => handleAddToBasket(product.id)} className="ATB-button">
-                        Add to Basket
-                    </button>
                 </div>
             ))}
         </div>
