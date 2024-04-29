@@ -193,7 +193,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({cartItems, removeItem, setCa
         };
 
         // Perform the submission
-        fetch('http://172.232.129.131/api/orders', {
+        fetch('https://172.232.129.131/api/orders', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
